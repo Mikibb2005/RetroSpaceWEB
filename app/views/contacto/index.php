@@ -6,7 +6,7 @@
     </div>
     <div class="xp-content">
         <h2>Envíame un mensaje</h2>
-        <p>Correo directo: mikisito@example.com</p>
+        <p>Correo directo: contact@retrospace.social</p>
         
         <form method="post" action="/contacto/enviar">
             <label>Nombre:</label>

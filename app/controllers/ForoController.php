@@ -30,19 +30,26 @@ class ForoController {
     
     public function crearHilo() {
         if (!$this->user->isLogged()) {
-            header('Location: /login');
+            header('Location: ' . BASE_URL . '/login');
             exit;
         }
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            require_once __DIR__ . '/../helpers/upload_helper.php';
+            $archivos = [];
+            if (isset($_FILES['archivos']) && !empty($_FILES['archivos']['name'][0])) {
+                $archivos = UploadHelper::uploadMultiple($_FILES['archivos'], 'foro');
+            }
+            
             $datos = [
                 'titulo' => $_POST['titulo'],
                 'descripcion' => $_POST['descripcion'],
                 'categoria' => $_POST['categoria'],
-                'autor_id' => $this->user->getCurrentUserId()
+                'autor_id' => $this->user->getCurrentUserId(),
+                'archivos' => $archivos
             ];
             $this->hiloModel->crear($datos);
-            header('Location: /foro');
+            header('Location: ' . BASE_URL . '/foro');
             exit;
         }
         

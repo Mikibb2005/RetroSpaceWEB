@@ -1,6 +1,6 @@
-# MikisitoOS - Red Social Estilo Windows XP
+# RetroSpace - Red Social Estilo Windows XP
 
-![MikisitoOS](https://img.shields.io/badge/PHP-7.4+-blue.svg)
+![RetroSpace](https://img.shields.io/badge/PHP-7.4+-blue.svg)
 ![MySQL](https://img.shields.io/badge/MySQL-5.7+-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
@@ -50,8 +50,8 @@ cd mikisito-web
 # Crear la base de datos
 mysql -u root -p
 
-CREATE DATABASE mikisito;
-USE mikisito;
+CREATE DATABASE retrospace;
+USE retrospace;
 
 # Importar el esquema
 SOURCE sql/database.sql;
@@ -72,7 +72,7 @@ sudo systemctl restart apache2
 Configura el DocumentRoot apuntando a la carpeta `public/`:
 ```apache
 <VirtualHost *:80>
-    ServerName mikisito.local
+    ServerName retrospace.local
     DocumentRoot /ruta/a/mikisito-web/public
     
     <Directory /ruta/a/mikisito-web/public>
@@ -108,14 +108,14 @@ Edita `app/core/Database.php` con tus credenciales:
 
 ```php
 private $host = 'localhost';
-private $db_name = 'mikisito';
+private $db_name = 'retrospace';
 private $username = 'root';
 private $password = 'tu_password';
 ```
 
 ### 5. Acceder a la aplicación
 
-Abre tu navegador en `http://mikisito.local` o `http://localhost`
+Abre tu navegador en `http://retrospace.local` o `http://localhost`
 
 ## 📁 Estructura del Proyecto
 
@@ -179,7 +179,7 @@ mikisito-web/
 ### Errores de conexión a BD
 - Verifica las credenciales en `app/core/Database.php`
 - Asegúrate de que MySQL esté corriendo
-- Verifica que la base de datos `mikisito` exista
+- Verifica que la base de datos `retrospace` exista
 
 ### La página de perfil está en blanco
 - Ejecuta `sql/update_schema.sql` para crear tablas faltantes
@@ -211,7 +211,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👤 Autor
 
-**MikisitoOS Team**
+**RetroSpace Team**
 
 ---
 

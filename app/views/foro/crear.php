@@ -1,5 +1,5 @@
 <?php 
-$pageTitle = 'Crear Hilo - Mikisito';
+$pageTitle = 'Crear Hilo - RetroSpace';
 require __DIR__ . '/../layout/header.php'; 
 ?>
 
@@ -10,7 +10,13 @@ require __DIR__ . '/../layout/header.php';
         </div>
     </div>
     <div class="xp-content">
-        <form action="<?php echo BASE_URL; ?>/foro/crear" method="POST">
+        <form action="<?php echo BASE_URL; ?>/foro/crear" method="POST" enctype="multipart/form-data">
+            <div style="margin-bottom: 15px;">
+                <label for="archivos"><strong>📎 Archivos (Imágenes/Videos - Máx. 3):</strong></label>
+                <input type="file" id="archivos" name="archivos[]" multiple accept="image/*,video/*" class="xp-input" style="width: 100%; margin-top: 5px;">
+                <small style="color: #666;">JPG, PNG, GIF, WEBP, MP4, WEBM. Máximo 10MB por archivo.</small>
+            </div>
+            
             <div style="margin-bottom: 15px;">
                 <label for="titulo"><strong>Título del hilo:</strong></label>
                 <input type="text" 

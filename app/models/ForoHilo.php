@@ -26,11 +26,12 @@ class ForoHilo {
     
     public function crear($datos) {
         $stmt = $this->db->prepare("INSERT INTO foro_hilos 
-                                    (titulo, descripcion, categoria, autor_id) 
-                                    VALUES (?, ?, ?, ?)");
+                                    (titulo, descripcion, categoria, autor_id, archivos) 
+                                    VALUES (?, ?, ?, ?, ?)");
         return $stmt->execute([
             $datos['titulo'], $datos['descripcion'], 
-            $datos['categoria'], $datos['autor_id']
+            $datos['categoria'], $datos['autor_id'],
+            isset($datos['archivos']) ? json_encode($datos['archivos']) : null
         ]);
     }
 }

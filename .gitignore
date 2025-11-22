@@ -2,12 +2,14 @@
 app/core/config.php
 config.php
 .env
+.admin_credentials
 
 # Archivos temporales y de test
 test-*.php
 public/test-*.php
 public/test-*.html
 debug*.php
+public/uploads/*
 
 # Logs y cache
 *.log

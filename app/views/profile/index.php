@@ -1,5 +1,5 @@
 <?php
-$pageTitle = 'Perfil de ' . htmlspecialchars($user['username']) . ' - Mikisito';
+$pageTitle = 'Perfil de ' . htmlspecialchars($user['username']) . ' - RetroSpace';
 require __DIR__ . '/../layout/header.php'; 
 ?>
 

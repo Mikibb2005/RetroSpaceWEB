@@ -41,8 +41,38 @@ $path = str_replace('/mikisito-web', '', $path); // Ajustar según tu carpeta
 
 // Enrutamiento simple
 $page = 'home';
-if (preg_match('/^\/diario\/(\d+)$/', $path, $matches)) {
+// DIARIO - Rutas de administración (deben ir ANTES de /diario/{id})
+if (preg_match('/^\/diario\/crear$/', $path)) {
     $controller = new DiarioController();
+    $controller->crear();
+    exit;
+} elseif (preg_match('/^\/diario\/editar\/(\d+)$/', $path, $matches)) {
+    $controller = new DiarioController();
+    $controller->editar($matches[1]);
+    exit;
+} elseif (preg_match('/^\/diario\/eliminar\/(\d+)$/', $path, $matches)) {
+    $controller = new DiarioController();
+    $controller->eliminar($matches[1]);
+    exit;
+} elseif (preg_match('/^\/diario\/(\d+)$/', $path, $matches)) {
+    $controller = new DiarioController();
+    $controller->ver($matches[1]);
+    exit;
+// PROYECTOS - Rutas de administración
+} elseif (preg_match('/^\/proyectos\/crear$/', $path)) {
+    $controller = new ProyectosController();
+    $controller->crear();
+    exit;
+} elseif (preg_match('/^\/proyectos\/editar\/(\d+)$/', $path, $matches)) {
+    $controller = new ProyectosController();
+    $controller->editar($matches[1]);
+    exit;
+} elseif (preg_match('/^\/proyectos\/eliminar\/(\d+)$/', $path, $matches)) {
+    $controller = new ProyectosController();
+    $controller->eliminar($matches[1]);
+    exit;
+} elseif (preg_match('/^\/proyectos\/(\d+)$/', $path, $matches)) {
+    $controller = new ProyectosController();
     $controller->ver($matches[1]);
     exit;
 } elseif (preg_match('/^\/foro\/hilo\/(\d+)$/', $path, $matches)) {

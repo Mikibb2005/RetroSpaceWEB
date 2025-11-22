@@ -1,5 +1,5 @@
 <?php 
-$pageTitle = htmlspecialchars($hilo['titulo']) . ' - Mikisito Foro';
+$pageTitle = htmlspecialchars($hilo['titulo']) . ' - RetroSpace Foro';
 require __DIR__ . '/../layout/header.php'; 
 ?>
 
