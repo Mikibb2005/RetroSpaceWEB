@@ -1,0 +1,331 @@
+/* Windows XP Classic Theme - Monospace */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    background: #00807F;
+    color: #000;
+    font-size: 14px;
+    min-height: 100vh;
+}
+
+/* Barra de tareas inferior */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 42px;
+    background: linear-gradient(to bottom, #245EDC, #7F9DE0);
+    border-top: 2px solid #0831D9;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.start-button {
+    height: 36px;
+    padding: 0 18px;
+    background: linear-gradient(to bottom, #3A6EA5, #0F4C84);
+    color: white;
+    border: 2px outset #fff;
+    font-family: monospace;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.start-button:active {
+    border-style: inset;
+}
+
+/* Ventana XP */
+.xp-window {
+    background: #D4D0C8;
+    border: 2px outset #fff;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 20px;
+}
+
+.xp-titlebar {
+    background: linear-gradient(to right, #0A246A, #A6CAF0);
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 24px;
+}
+
+.xp-titlebar.inactive {
+    background: linear-gradient(to right, #808080, #C0C0C0);
+}
+
+.xp-titlebar-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.xp-buttons {
+    display: flex;
+    gap: 2px;
+}
+
+.xp-btn {
+    width: 18px;
+    height: 18px;
+    background: #D4D0C8;
+    border: 2px outset #fff;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: monospace;
+    padding: 0;
+}
+
+.xp-btn:active {
+    border-style: inset;
+}
+
+.xp-content {
+    padding: 10px;
+    border: 2px inset #fff;
+    min-height: 200px;
+}
+
+/* Header fijo */
+.xp-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #D4D0C8;
+    border-bottom: 2px inset #fff;
+    z-index: 999;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Grid de navegación */
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-item {
+    background: #D4D0C8;
+    border: 2px outset #fff;
+    padding: 8px 4px;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    transition: all 0.1s;
+}
+
+.nav-item:hover {
+    background: #0A246A;
+    color: white;
+}
+
+.nav-item:active {
+    border-style: inset;
+}
+
+.nav-item.active {
+    background: #0A246A;
+    color: white;
+    border-style: inset;
+}
+
+/* User Menu */
+.user-menu {
+    position: relative;
+    margin-left: 10px;
+}
+
+.user-menu-btn {
+    background: transparent;
+    border: none;
+    padding: 0 10px;
+    font-family: 'Courier Prime', monospace;
+    font-weight: normal;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    color: white;
+    line-height: 42px;
+    height: 42px;
+}
+
+/* Estilo del botón en taskbar - letras blancas siempre */
+.taskbar .user-menu-btn {
+    color: white;
+}
+
+.user-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.user-menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #D4D0C8;
+    border: 2px outset #fff;
+    min-width: 180px;
+    margin-top: 2px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Dropdown en taskbar va hacia arriba */
+.taskbar .user-menu-dropdown {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: 2px;
+}
+
+.user-menu:hover .user-menu-dropdown {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    border-bottom: 1px solid #999;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: #0A246A;
+    color: white;
+}
+
+.main-content {
+    margin-top: 60px;
+    margin-bottom: 50px;
+    padding: 20px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Grids de contenido */
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Botones XP */
+.xp-button {
+    background: #D4D0C8;
+    border: 2px outset #fff;
+    padding: 6px 16px;
+    font-family: monospace;
+    cursor: pointer;
+    margin: 4px;
+}
+
+.xp-button:active {
+    border-style: inset;
+}
+
+/* Formularios */
+.xp-input,
+.xp-textarea,
+.xp-select {
+    border: 2px inset #fff;
+    background: white;
+    padding: 4px;
+    font-family: monospace;
+    width: 100%;
+    margin: 4px 0;
+}
+
+.xp-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Lista de posts/foros */
+.xp-list {
+    list-style: none;
+}
+
+.xp-list-item {
+    background: white;
+    border: 1px solid #7F9DE0;
+    margin: 4px 0;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.xp-list-item:hover {
+    background: #D4D0C8;
+}
+
+/* Comentarios anidados */
+.comment {
+    border-left: 2px solid #0A246A;
+    margin: 10px 0;
+    padding-left: 15px;
+}
+
+.comment.nested {
+    margin-left: 30px;
+}
+
+/* Categorías de proyectos */
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+/* Footer */
+.xp-footer {
+    text-align: center;
+    padding: 10px;
+    background: #D4D0C8;
+    border-top: 2px inset #fff;
+    margin-top: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .home-grid {
+        grid-template-columns: 1fr;
+    }
+}

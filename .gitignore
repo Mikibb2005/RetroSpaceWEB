@@ -1,0 +1,46 @@
+# Archivos de configuración local
+app/core/config.php
+config.php
+.env
+
+# Archivos temporales y de test
+test-*.php
+public/test-*.php
+public/test-*.html
+debug*.php
+
+# Logs y cache
+*.log
+logs/
+cache/
+tmp/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (si usas npm)
+node_modules/
+package-lock.json
+
+# Composer (si usas Composer)
+vendor/
+composer.lock
+
+# Archivos de base de datos
+*.sql.backup
+*.sql.bak
+backup/
+
+# Archivos sensibles
+*.pem
+*.key
+*.cert
