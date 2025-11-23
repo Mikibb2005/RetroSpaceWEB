@@ -1,4 +1,4 @@
-/* Windows XP Classic Theme - Monospace */
+/* Windows 98 Classic Theme */
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
 * {
@@ -9,7 +9,8 @@
 
 body {
     font-family: 'Courier Prime', 'Courier New', monospace;
-    background: #00807F;
+    background: #008080;
+    /* Teal clásico */
     color: #000;
     font-size: 14px;
     min-height: 100vh;
@@ -21,88 +22,72 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 42px;
-    background: linear-gradient(to bottom, #245EDC, #7F9DE0);
-    border-top: 2px solid #0831D9;
+    height: 28px;
+    background: #C0C0C0;
+    border-top: 2px solid #fff;
     z-index: 1000;
     display: flex;
     align-items: center;
-    padding: 0 4px;
+    padding: 2px;
+    box-shadow: inset 0 1px 0 #fff;
 }
 
 .start-button {
-    height: 36px;
-    padding: 0 18px;
-    background: linear-gradient(to bottom, #3A6EA5, #0F4C84);
-    color: white;
+    height: 22px;
+    padding: 0 6px;
+    background: #C0C0C0;
+    color: #000;
     border: 2px outset #fff;
     font-family: monospace;
     font-weight: bold;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
+    box-shadow: 1px 1px 0 #000;
 }
 
 .start-button:active {
     border-style: inset;
+    padding-top: 2px;
+    padding-left: 8px;
 }
 
-/* Ventana XP */
+/* Ventana Win98 */
 .xp-window {
-    background: #D4D0C8;
+    background: #C0C0C0;
     border: 2px outset #fff;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 0 #000;
     margin: 20px;
 }
 
 .xp-titlebar {
-    background: linear-gradient(to right, #0A246A, #A6CAF0);
+    background: linear-gradient(to right, #000080, #1084d0);
     color: white;
-    padding: 4px 8px;
+    padding: 2px 4px;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 24px;
+    height: 20px;
 }
 
 .xp-titlebar.inactive {
-    background: linear-gradient(to right, #808080, #C0C0C0);
+    background: #808080;
+    color: #C0C0C0;
 }
 
 .xp-titlebar-text {
     display: flex;
     align-items: center;
     gap: 6px;
-}
-
-.xp-buttons {
-    display: flex;
-    gap: 2px;
-}
-
-.xp-btn {
-    width: 18px;
-    height: 18px;
-    background: #D4D0C8;
-    border: 2px outset #fff;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-family: monospace;
-    padding: 0;
-}
-
-.xp-btn:active {
-    border-style: inset;
+    font-size: 12px;
 }
 
 .xp-content {
     padding: 10px;
     border: 2px inset #fff;
+    /* En Win98 el contenido no siempre tiene borde inset, pero queda bien */
     min-height: 200px;
 }
 
@@ -112,10 +97,10 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: #D4D0C8;
-    border-bottom: 2px inset #fff;
+    background: #C0C0C0;
+    border-bottom: 2px solid #000;
     z-index: 999;
-    padding: 8px;
+    padding: 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,35 +110,25 @@ body {
 .nav-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 4px;
+    gap: 2px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .nav-item {
-    background: #D4D0C8;
+    background: #C0C0C0;
     border: 2px outset #fff;
-    padding: 8px 4px;
+    padding: 4px;
     text-align: center;
     text-decoration: none;
     color: #000;
     font-weight: bold;
-    transition: all 0.1s;
 }
 
-.nav-item:hover {
-    background: #0A246A;
-    color: white;
-}
-
-.nav-item:active {
-    border-style: inset;
-}
-
+.nav-item:active,
 .nav-item.active {
-    background: #0A246A;
-    color: white;
-    border-style: inset;
+    border: 2px inset #fff;
+    background: #C0C0C0;
 }
 
 /* User Menu */
@@ -166,23 +141,23 @@ body {
     background: transparent;
     border: none;
     padding: 0 10px;
-    font-family: 'Courier Prime', monospace;
+    font-family: monospace;
     font-weight: normal;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     white-space: nowrap;
-    color: white;
-    line-height: 42px;
-    height: 42px;
+    color: #000;
+    line-height: 28px;
+    height: 28px;
 }
 
-/* Estilo del botón en taskbar - letras blancas siempre */
 .taskbar .user-menu-btn {
-    color: white;
+    color: #000;
 }
 
 .user-menu-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: #000080;
+    color: white;
 }
 
 .user-menu-dropdown {
@@ -190,18 +165,16 @@ body {
     position: absolute;
     top: 100%;
     right: 0;
-    background: #D4D0C8;
+    background: #C0C0C0;
     border: 2px outset #fff;
-    min-width: 180px;
-    margin-top: 2px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    min-width: 150px;
+    margin-top: 0;
+    box-shadow: 2px 2px 0 #000;
 }
 
-/* Dropdown en taskbar va hacia arriba */
 .taskbar .user-menu-dropdown {
     top: auto;
     bottom: 100%;
-    margin-top: 0;
     margin-bottom: 2px;
 }
 
@@ -211,32 +184,26 @@ body {
 
 .dropdown-item {
     display: block;
-    padding: 8px 12px;
+    padding: 4px 10px;
     text-decoration: none;
     color: #000;
-    font-weight: bold;
-    border-bottom: 1px solid #999;
-}
-
-.dropdown-item:last-child {
-    border-bottom: none;
 }
 
 .dropdown-item:hover {
-    background: #0A246A;
+    background: #000080;
     color: white;
 }
 
 .main-content {
-    margin-top: 60px;
-    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-bottom: 40px;
     padding: 20px;
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Grids de contenido */
+/* Grids */
 .home-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -250,7 +217,6 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    /* Override margin: 20px de .xp-window base */
 }
 
 .home-grid .xp-content {
@@ -259,11 +225,11 @@ body {
     flex-direction: column;
 }
 
-/* Botones XP */
+/* Botones */
 .xp-button {
-    background: #D4D0C8;
+    background: #C0C0C0;
     border: 2px outset #fff;
-    padding: 6px 16px;
+    padding: 4px 12px;
     font-family: monospace;
     cursor: pointer;
     margin: 4px;
@@ -271,14 +237,14 @@ body {
     color: #000;
     display: inline-block;
     text-align: center;
-}
-
-.xp-button:hover {
-    background: #e0e0e0;
+    box-shadow: 1px 1px 0 #000;
 }
 
 .xp-button:active {
     border-style: inset;
+    padding-top: 5px;
+    padding-left: 13px;
+    /* Simular pulsación */
 }
 
 /* Formularios */
@@ -287,59 +253,50 @@ body {
 .xp-select {
     border: 2px inset #fff;
     background: white;
-    padding: 4px;
+    padding: 2px;
     font-family: monospace;
     width: 100%;
     margin: 4px 0;
 }
 
-.xp-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-/* Lista de posts/foros */
-.xp-list {
-    list-style: none;
-}
-
 .xp-list-item {
     background: white;
-    border: 1px solid #7F9DE0;
+    border: 1px dotted #000;
     margin: 4px 0;
     padding: 8px;
     cursor: pointer;
 }
 
 .xp-list-item:hover {
-    background: #D4D0C8;
+    background: #000080;
+    color: white;
 }
 
-/* Comentarios anidados */
-.comment {
-    border-left: 2px solid #0A246A;
-    margin: 10px 0;
-    padding-left: 15px;
-}
-
-.comment.nested {
-    margin-left: 30px;
-}
-
-/* Categorías de proyectos */
-.filter-buttons {
+/* Botones de ventana */
+.window-controls {
     display: flex;
-    gap: 8px;
-    margin: 15px 0;
+    gap: 2px;
 }
 
-/* Footer */
-.xp-footer {
-    text-align: center;
-    padding: 10px;
-    background: #D4D0C8;
-    border-top: 2px inset #fff;
-    margin-top: 30px;
+.win-btn {
+    width: 16px;
+    height: 14px;
+    background: #C0C0C0;
+    border: 1px outset #fff;
+    font-size: 10px;
+    line-height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    color: #000;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding-bottom: 2px;
+}
+
+.win-btn:active {
+    border-style: inset;
 }
 
 /* Responsive */
@@ -351,45 +308,4 @@ body {
     .home-grid {
         grid-template-columns: 1fr;
     }
-}
-
-/* Botones de ventana XP */
-.window-controls {
-    display: flex;
-    gap: 2px;
-    margin-left: 10px;
-}
-
-.win-btn {
-    width: 21px;
-    height: 21px;
-    background: #D4D0C8;
-    border: 1px solid white;
-    border-radius: 3px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: default;
-    color: white;
-    font-family: sans-serif;
-    font-weight: bold;
-    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
-}
-
-.win-btn.min {
-    background: linear-gradient(to bottom, #6987D5, #245EDC);
-}
-
-.win-btn.max {
-    background: linear-gradient(to bottom, #6987D5, #245EDC);
-}
-
-.win-btn.close {
-    background: linear-gradient(to bottom, #E07F7F, #D93131);
-    border: 1px solid #fff;
-}
-
-.win-btn:hover {
-    opacity: 0.9;
 }

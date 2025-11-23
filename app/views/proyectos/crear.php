@@ -6,10 +6,18 @@ require __DIR__ . '/../layout/header.php';
 <div class="xp-window" style="max-width: 800px; margin: 20px auto;">
     <div class="xp-titlebar">
         <div class="xp-titlebar-text">
-            ⚡ Crear Nuevo Proyecto
+            🚀 Publicar Nuevo Proyecto
         </div>
     </div>
     <div class="xp-content">
+        <div style="background: #e8f4ff; border: 1px solid #0066cc; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+            <strong>📢 Espacio Comunitario</strong><br>
+            <p style="margin: 5px 0 0 0; font-size: 0.95em;">
+                Comparte tus proyectos de programación, hardware, mods o GameMaker con la comunidad. 
+                Podrás publicar actualizaciones periódicas sobre el desarrollo y recibir comentarios de otros usuarios.
+            </p>
+        </div>
+        
         <form action="<?php echo BASE_URL; ?>/proyectos/crear" method="POST" enctype="multipart/form-data">
             <div style="margin-bottom: 15px;">
                 <label for="archivos"><strong>📎 Archivos (Imágenes/Videos - Máx. 3):</strong></label>

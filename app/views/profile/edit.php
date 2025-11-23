@@ -40,6 +40,51 @@
                 </div>
             </div>
 
+            <div style="margin-bottom: 15px;">
+                <label><strong>Sistemas Operativos Favoritos (Máx 10):</strong></label>
+                <div style="max-height: 300px; overflow-y: auto; background: #fff; padding: 10px; border: 2px inset #fff; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 5px;">
+                    <?php 
+                    $currentTags = isset($user['etiquetas_so']) ? json_decode($user['etiquetas_so'], true) : [];
+                    if (!is_array($currentTags)) $currentTags = [];
+                    
+                    foreach ($availableTags as $tag): 
+                        $checked = in_array($tag, $currentTags) ? 'checked' : '';
+                    ?>
+                        <label style="font-size: 12px; display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                            <input type="checkbox" name="etiquetas_so[]" value="<?php echo htmlspecialchars($tag); ?>" <?php echo $checked; ?> onclick="checkLimit(this)">
+                            <?php echo htmlspecialchars($tag); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <small style="color: #666;">Seleccionados: <span id="tag-count">0</span>/10</small>
+            </div>
+
+            <script>
+            function checkLimit(checkbox) {
+                var checkboxes = document.getElementsByName('etiquetas_so[]');
+                var count = 0;
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) count++;
+                }
+                
+                if (count > 10) {
+                    checkbox.checked = false;
+                    alert('Solo puedes seleccionar hasta 10 sistemas operativos.');
+                    count--;
+                }
+                document.getElementById('tag-count').innerText = count;
+            }
+            // Init count
+            document.addEventListener('DOMContentLoaded', function() {
+                var checkboxes = document.getElementsByName('etiquetas_so[]');
+                var count = 0;
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked) count++;
+                }
+                document.getElementById('tag-count').innerText = count;
+            });
+            </script>
+
             <label for="biografia"><strong>Biografía:</strong></label>
             <textarea name="biografia" id="biografia" class="xp-textarea" placeholder="Cuéntanos sobre ti..."><?php echo htmlspecialchars($user['biografia'] ?? ''); ?></textarea>
             

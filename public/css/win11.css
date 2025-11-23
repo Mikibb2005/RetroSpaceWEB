@@ -1,0 +1,356 @@
+/* Windows 11 Theme */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f3f3f3;
+    /* Mica base */
+    background: url('https://images.unsplash.com/photo-1622542796254-5b9c46a3d2f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+    background-size: cover;
+    color: #000;
+    font-size: 14px;
+    min-height: 100vh;
+}
+
+/* Barra de tareas Win11 (Centrada, flotante) */
+.taskbar {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 48px;
+    width: auto;
+    min-width: 400px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(20px) saturate(120%);
+}
+
+.start-button {
+    height: 40px;
+    width: 40px;
+    background: transparent;
+    color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 4px;
+    border-radius: 4px;
+}
+
+.start-button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.start-button::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(to bottom right, #0078d4, #00bcf2);
+    mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h11v11H0V0zm13 0h11v11H13V0zM0 13h11v11H0V13zm13 0h11v11H13V13z"/></svg>') no-repeat center;
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h11v11H0V0zm13 0h11v11H13V0zM0 13h11v11H0V13zm13 0h11v11H13V13z"/></svg>') no-repeat center;
+    background-color: #0078d4;
+}
+
+/* Ventana Win11 */
+.xp-window {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+}
+
+.xp-titlebar {
+    background: transparent;
+    color: #000;
+    padding: 0 16px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+.xp-titlebar-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.xp-content {
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.5);
+    min-height: 200px;
+}
+
+/* Header fijo */
+.xp-header {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    z-index: 999;
+    padding: 0 10px;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+}
+
+/* Navegación */
+.nav-grid {
+    display: flex;
+    gap: 4px;
+    margin: 0 auto;
+}
+
+.nav-item {
+    background: transparent;
+    padding: 0 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    transition: all 0.2s;
+    line-height: 36px;
+    height: 36px;
+    border-radius: 4px;
+    margin-top: 0;
+    font-size: 14px;
+}
+
+.nav-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.nav-item.active {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+}
+
+/* User Menu */
+.user-menu {
+    position: relative;
+    margin-left: 0;
+}
+
+.user-menu-btn {
+    background: transparent;
+    border: none;
+    padding: 0 12px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #000;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 40px;
+    height: 40px;
+    border-radius: 4px;
+    margin: 0 4px;
+}
+
+.user-menu-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.user-menu-dropdown {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 4px;
+}
+
+.user-menu:hover .user-menu-dropdown {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.main-content {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    padding: 20px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Grids */
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+    align-items: stretch;
+}
+
+.home-grid .xp-window {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.home-grid .xp-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+.home-grid .xp-titlebar {
+    background: transparent;
+}
+
+/* Botones Win11 */
+.xp-button {
+    background: #0067c0;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 20px;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: pointer;
+    margin: 4px;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.xp-button:hover {
+    background: #005a9e;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.xp-button:active {
+    background: #004578;
+    transform: scale(0.98);
+}
+
+/* Inputs */
+.xp-input,
+.xp-textarea,
+.xp-select {
+    border: 1px solid #d1d1d1;
+    border-bottom: 2px solid #d1d1d1;
+    padding: 8px 12px;
+    font-family: 'Segoe UI', sans-serif;
+    width: 100%;
+    margin: 4px 0;
+    background: #fff;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.xp-input:hover {
+    background: #fbfbfb;
+    border-color: #c0c0c0;
+}
+
+.xp-input:focus {
+    border-color: #0067c0;
+    border-bottom-color: #0067c0;
+    outline: none;
+    background: #fff;
+}
+
+/* Botones de ventana */
+.window-controls {
+    display: flex;
+    gap: 4px;
+    margin-left: 10px;
+    margin-right: -8px;
+    height: 100%;
+    align-items: center;
+}
+
+.win-btn {
+    width: 46px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    color: #000;
+    font-weight: normal;
+    transition: background 0.1s;
+}
+
+.win-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.win-btn.close:hover {
+    background: #c42b1c;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-grid {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .home-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .taskbar {
+        width: 95%;
+        min-width: auto;
+    }
+}

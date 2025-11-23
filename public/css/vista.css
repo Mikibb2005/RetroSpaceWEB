@@ -1,0 +1,418 @@
+/* Windows Vista Aero Theme (Reference Match) */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    /* Fondo Aurora Verde/Azul (Match imagen) */
+    background: radial-gradient(circle at 0% 50%, #68c952 0%, #009c9c 30%, #005a8c 60%, #001e3c 100%);
+    background-attachment: fixed;
+    color: #000;
+    font-size: 14px;
+    min-height: 100vh;
+}
+
+/* Barra de tareas Vista (Negro Glass Profundo) */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(50, 50, 50, 0.9) 0%, rgba(10, 10, 10, 0.95) 50%, #000 51%, #000 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+/* Orbe de Inicio (Sobresale) */
+.start-button {
+    height: 46px;
+    width: 46px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #153849 0%, #051822 100%);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2), inset 0 0 8px rgba(0, 0, 0, 0.8), inset 0 2px 5px rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin-right: 12px;
+    margin-top: -8px;
+    margin-left: -4px;
+    transition: all 0.3s;
+}
+
+.start-button:hover {
+    box-shadow: 0 0 20px rgba(100, 255, 255, 0.6), inset 0 0 5px rgba(255, 255, 255, 0.5);
+    background: radial-gradient(circle at 50% 50%, #2a6a8a 0%, #0a3045 100%);
+}
+
+.start-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(45deg, #f36c21 0%, #f36c21 45%, transparent 45%),
+        linear-gradient(135deg, #8cc63f 0%, #8cc63f 45%, transparent 45%),
+        linear-gradient(225deg, #00adef 0%, #00adef 45%, transparent 45%),
+        linear-gradient(315deg, #ffc425 0%, #ffc425 45%, transparent 45%);
+    border-radius: 50%;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+}
+
+/* Ventana Vista (Aero Glass Cian/Verdoso) */
+.xp-window {
+    /* Color base del cristal (Cian oscuro transparente) */
+    background: rgba(30, 60, 70, 0.55);
+    border: 1px solid rgba(150, 200, 210, 0.4);
+    border-radius: 8px;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+        /* Borde interior brillante */
+        0 0 15px rgba(100, 200, 255, 0.1),
+        /* Glow exterior sutil */
+        0 20px 50px rgba(0, 0, 0, 0.6);
+    /* Sombra profunda */
+    margin: 25px;
+    padding: 8px;
+    /* Marco grueso */
+    backdrop-filter: blur(15px);
+    position: relative;
+}
+
+/* Reflejo diagonal característico de Aero */
+.xp-window::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 30%, transparent 30%, transparent 100%);
+    border-radius: 7px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.xp-titlebar {
+    background: transparent;
+    color: #fff;
+    padding: 4px 8px;
+    font-weight: normal;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 4px rgba(0, 0, 0, 0.8);
+    /* Glow blanco + sombra negra para legibilidad */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 26px;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+.xp-titlebar-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* Contenido interior (Blanco con barra azulada arriba) */
+.xp-content {
+    padding: 0;
+    background: #fff;
+    min-height: 200px;
+    border: 1px solid #555;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Barra de herramientas simulada (azulada como en la imagen) */
+.xp-content::before {
+    content: '';
+    display: block;
+    height: 30px;
+    width: 100%;
+    background: linear-gradient(to bottom, #f0f6fb 0%, #dbeaf9 100%);
+    border-bottom: 1px solid #b6d0e9;
+}
+
+/* Ajuste para que el padding real empiece después de la barra simulada */
+.xp-content>* {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.xp-content>*:first-child {
+    margin-top: 15px;
+}
+
+
+/* Header fijo (Barra de dirección simulada) */
+.xp-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, #fcfcfc 0%, #e6e6e6 100%);
+    border-bottom: 1px solid #888;
+    z-index: 999;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Navegación */
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-item {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: normal;
+    transition: all 0.2s;
+}
+
+.nav-item:hover {
+    background: linear-gradient(to bottom, #f2f9fe 0%, #d6e8f3 100%);
+    border-color: #98b4d0;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 1) inset;
+}
+
+.nav-item.active {
+    background: linear-gradient(to bottom, #e3f0fc 0%, #cce5f6 100%);
+    border-color: #7da2ce;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* User Menu */
+.user-menu {
+    position: relative;
+    margin-left: auto;
+}
+
+.user-menu-btn {
+    background: transparent;
+    border: none;
+    padding: 0 15px;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 40px;
+    height: 40px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+}
+
+.user-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.user-menu-dropdown {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background: #f0f0f0;
+    border: 1px solid #666;
+    min-width: 200px;
+    margin-bottom: 8px;
+    border-radius: 0;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    padding: 0;
+    /* Estilo menú inicio Vista (Columna derecha oscura simulada) */
+    background: linear-gradient(to right, #fff 60%, #2b3e4d 60%);
+}
+
+.user-menu:hover .user-menu-dropdown {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+}
+
+/* Items de la derecha (oscuros) */
+.dropdown-item:nth-child(even) {
+    color: #fff;
+    text-align: right;
+}
+
+.dropdown-item:nth-child(odd) {
+    color: #333;
+    width: 60%;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(to bottom, #eaf6fd 0%, #d9f0fc 50%, #bee6fd 50%, #a7d9f5 100%);
+    border: 1px solid #3c7fb1;
+    margin: -1px;
+    color: #000 !important;
+}
+
+.main-content {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding: 20px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Grids */
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+    align-items: stretch;
+}
+
+.home-grid .xp-window {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.home-grid .xp-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botones Vista (Glossy Cyan/Green tint) */
+.xp-button {
+    background: linear-gradient(to bottom, #f2f2f2 0%, #ebebeb 50%, #dddddd 50%, #cfcfcf 100%);
+    border: 1px solid #707070;
+    border-radius: 3px;
+    padding: 6px 18px;
+    font-family: 'Segoe UI', sans-serif;
+    cursor: pointer;
+    margin: 4px;
+    text-decoration: none;
+    color: #000;
+    display: inline-block;
+    text-align: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.xp-button:hover {
+    background: linear-gradient(to bottom, #eaf6fd 0%, #d9f0fc 50%, #bee6fd 50%, #a7d9f5 100%);
+    border-color: #3c7fb1;
+    box-shadow: 0 0 5px #3c7fb1, inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Inputs */
+.xp-input,
+.xp-textarea,
+.xp-select {
+    border: 1px solid #abadb3;
+    padding: 6px;
+    font-family: 'Segoe UI', sans-serif;
+    width: 100%;
+    margin: 4px 0;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.xp-input:focus {
+    border-color: #3c7fb1;
+    box-shadow: 0 0 5px rgba(60, 127, 177, 0.5), inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+/* Botones de ventana (Vista Style Exacto) */
+.window-controls {
+    display: flex;
+    gap: 0;
+    margin-left: 10px;
+    margin-right: -4px;
+    z-index: 2;
+}
+
+.win-btn {
+    width: 28px;
+    height: 18px;
+    border-radius: 2px;
+    /* Fondo sutil integrado en el cristal */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    color: #000;
+    font-weight: bold;
+    margin: 0 1px;
+}
+
+.win-btn:hover {
+    background: linear-gradient(to bottom, #dcf4fc 0%, #98dcf6 49%, #60c3ee 50%, #76cbf1 100%);
+    border-color: #3c7fb1;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.win-btn.close {
+    width: 46px;
+    /* Muy ancho en Vista */
+    background: linear-gradient(to bottom, #eebbbd 0%, #e07d81 49%, #d94348 50%, #d02f34 100%);
+    border-color: #8e1e21;
+    color: white;
+    box-shadow: inset 0 1px 0 rgba(255, 200, 200, 0.5);
+    margin-left: 4px;
+    /* Separado del resto */
+}
+
+.win-btn.close:hover {
+    background: linear-gradient(to bottom, #f2d0d2 0%, #eb9ea1 49%, #e36b6f 50%, #de5358 100%);
+    box-shadow: 0 0 8px #d02f34, inset 0 1px 0 rgba(255, 200, 200, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .home-grid {
+        grid-template-columns: 1fr;
+    }
+}

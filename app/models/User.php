@@ -90,14 +90,25 @@ class User {
     }
     
     public function getUserById($id) {
-        $stmt = $this->db->prepare("SELECT id, username, email, nombre_real, rol, fecha_registro, biografia, avatar FROM usuarios WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT id, username, email, nombre_real, rol, fecha_registro, biografia, avatar, etiquetas_so FROM usuarios WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateProfile($userId, $nombreReal, $biografia, $avatar) {
-        $stmt = $this->db->prepare("UPDATE usuarios SET nombre_real = ?, biografia = ?, avatar = ? WHERE id = ?");
-        return $stmt->execute([$nombreReal, $biografia, $avatar, $userId]);
+    public function updateProfile($userId, $nombreReal, $biografia, $avatar, $etiquetasSo = null) {
+        $sql = "UPDATE usuarios SET nombre_real = ?, biografia = ?, avatar = ?";
+        $params = [$nombreReal, $biografia, $avatar];
+        
+        if ($etiquetasSo !== null) {
+            $sql .= ", etiquetas_so = ?";
+            $params[] = $etiquetasSo;
+        }
+        
+        $sql .= " WHERE id = ?";
+        $params[] = $userId;
+        
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute($params);
     }
 
     public function follow($followerId, $followedId) {

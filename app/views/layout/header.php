@@ -7,19 +7,28 @@ $router = $GLOBALS['router'] ?? null;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? $pageTitle : ('RetroSpace - ' . (isset($router) ? ucfirst($router->getCurrentPage()) : 'Home')); ?></title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/xp.css">
+    <link id="theme-style" rel="stylesheet" href="<?php echo BASE_URL; ?>/css/xp.css">
+    <script>
+        // Cargar tema guardado inmediatamente para evitar flash
+        (function() {
+            var savedTheme = localStorage.getItem('retro_theme');
+            if (savedTheme) {
+                var link = document.getElementById('theme-style');
+                link.href = '<?php echo BASE_URL; ?>/css/' + savedTheme + '.css';
+            }
+        })();
+    </script>
 </head>
 <body>
     <!-- Header fijo XP -->
     <header class="xp-header">
         <div class="nav-grid">
-            <a href="<?php echo BASE_URL; ?>/" class="nav-item <?php echo (isset($router) && $router->isActive('home')) ? 'active' : ''; ?>">Inicio</a>
-            <a href="<?php echo BASE_URL; ?>/diario" class="nav-item <?php echo (isset($router) && $router->isActive('diario')) ? 'active' : ''; ?>">Diario</a>
-            <a href="<?php echo BASE_URL; ?>/proyectos" class="nav-item <?php echo (isset($router) && $router->isActive('proyectos')) ? 'active' : ''; ?>">Proyectos</a>
-            <a href="<?php echo BASE_URL; ?>/juegos" class="nav-item <?php echo (isset($router) && $router->isActive('juegos')) ? 'active' : ''; ?>">Juegos (Mantenimiento)</a>
-            <a href="<?php echo BASE_URL; ?>/foro" class="nav-item <?php echo (isset($router) && $router->isActive('foro')) ? 'active' : ''; ?>">Foro</a>
-            <a href="<?php echo BASE_URL; ?>/youtube" class="nav-item <?php echo (isset($router) && $router->isActive('youtube')) ? 'active' : ''; ?>">YouTube</a>
-            <a href="<?php echo BASE_URL; ?>/contacto" class="nav-item <?php echo (isset($router) && $router->isActive('contacto')) ? 'active' : ''; ?>">Contacto</a>
+            <a href="<?php echo BASE_URL; ?>/" class="nav-item <?php echo (isset($router) && $router->isActive('home')) ? 'active' : ''; ?>"><?php echo __('nav.home'); ?></a>
+            <a href="<?php echo BASE_URL; ?>/proyectos" class="nav-item <?php echo (isset($router) && $router->isActive('proyectos')) ? 'active' : ''; ?>"><?php echo __('nav.projects'); ?></a>
+            <a href="<?php echo BASE_URL; ?>/foro" class="nav-item <?php echo (isset($router) && $router->isActive('foro')) ? 'active' : ''; ?>"><?php echo __('nav.forum'); ?></a>
+            <a href="<?php echo BASE_URL; ?>/juegos" class="nav-item <?php echo (isset($router) && $router->isActive('juegos')) ? 'active' : ''; ?>"><?php echo __('nav.games'); ?></a>
+            <a href="<?php echo BASE_URL; ?>/youtube" class="nav-item <?php echo (isset($router) && $router->isActive('youtube')) ? 'active' : ''; ?>"><?php echo __('nav.youtube'); ?></a>
+            <a href="<?php echo BASE_URL; ?>/contacto" class="nav-item <?php echo (isset($router) && $router->isActive('contacto')) ? 'active' : ''; ?>"><?php echo __('nav.contact'); ?></a>
         </div>
     </header>
 

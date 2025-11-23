@@ -37,6 +37,22 @@ require __DIR__ . '/../layout/header.php';
                 <p style="margin: 5px 0;"><strong>Rol:</strong> <?php echo ucfirst($user['rol']); ?></p>
                 <p style="margin: 5px 0;"><strong>Miembro desde:</strong> <?php echo date('d/m/Y', strtotime($user['fecha_registro'])); ?></p>
                 
+                <?php 
+                $etiquetas = isset($user['etiquetas_so']) ? json_decode($user['etiquetas_so'], true) : [];
+                if (!empty($etiquetas)): 
+                ?>
+                <div style="margin: 10px 0;">
+                    <strong>Sistemas Favoritos:</strong><br>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px;">
+                        <?php foreach ($etiquetas as $tag): ?>
+                            <span style="background: #eee; border: 1px solid #999; padding: 2px 6px; border-radius: 3px; font-size: 11px;">
+                                🖥️ <?php echo htmlspecialchars($tag); ?>
+                            </span>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+                
                 <div style="margin-top: 10px;">
                     <?php if ($isOwnProfile): ?>
                         <a href="/perfil/editar" class="xp-button">✏️ Editar Perfil</a>

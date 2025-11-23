@@ -1,58 +1,135 @@
 <?php require __DIR__ . '/../layout/header.php'; ?>
 
-<div class="xp-window">
+<div class="xp-window" style="max-width: 1000px; margin: 20px auto;">
     <div class="xp-titlebar">
-        <span>⚙️ Proyectos - Portfolio</span>
+        <div class="xp-titlebar-text">
+            ⚙️ <?php echo __('projects.title'); ?>
+        </div>
     </div>
     <div class="xp-content">
-        <h2>Proyectos por Categoría</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+            <h2 style="margin: 0;"><?php echo __('projects.subtitle'); ?></h2>
+            <?php if ($canCreate): ?>
+                <a href="<?php echo BASE_URL; ?>/proyectos/crear" class="xp-button" style="font-weight: bold;"><?php echo __('projects.new'); ?></a>
+            <?php endif; ?>
+        </div>
         
-        <?php if ($this->user->isAdmin()): ?>
-            <button class="xp-button" onclick="location.href='/proyectos/crear'">+ Nuevo Proyecto</button>
+        <!-- Filtro desplegable de categorías -->
+        <div style="margin-bottom: 20px;">
+            <label for="categoria-filter" style="font-weight: bold; margin-right: 10px;">🔍 <?php echo __('projects.filter'); ?></label>
+            <select id="categoria-filter" class="xp-select" style="width: auto; min-width: 200px;" onchange="filtrarCategoria(this.value)">
+                <option value="" <?php echo (!isset($_GET['categoria'])) ? 'selected' : ''; ?>><?php echo __('projects.all'); ?></option>
+                <option value="Programacion" <?php echo (isset($_GET['categoria']) && $_GET['categoria'] === 'Programacion') ? 'selected' : ''; ?>>💻 <?php echo __('category.programming'); ?></option>
+                <option value="Hardware" <?php echo (isset($_GET['categoria']) && $_GET['categoria'] === 'Hardware') ? 'selected' : ''; ?>>🔧 <?php echo __('category.hardware'); ?></option>
+                <option value="Mods" <?php echo (isset($_GET['categoria']) && $_GET['categoria'] === 'Mods') ? 'selected' : ''; ?>>🎮 <?php echo __('category.mods'); ?></option>
+                <option value="GameMaker" <?php echo (isset($_GET['categoria']) && $_GET['categoria'] === 'GameMaker') ? 'selected' : ''; ?>>🎲 <?php echo __('category.gamemaker'); ?></option>
+            </select>
+        </div>
+        
+        <?php if (empty($proyectos)): ?>
+            <p style="text-align: center; padding: 40px; color: #666;">
+                📭 <?php echo __('projects.none'); ?>
+                <?php if (isset($_GET['categoria'])): ?>
+                    <br><a href="<?php echo BASE_URL; ?>/proyectos"><?php echo __('projects.view_all'); ?></a>
+                <?php endif; ?>
+            </p>
+        <?php else: ?>
+            <ul class="xp-list">
+                <?php foreach ($proyectos as $proyecto): ?>
+                    <li class="xp-list-item" style="cursor: pointer;" onclick="location.href='<?php echo BASE_URL; ?>/proyectos/<?php echo $proyecto['id']; ?>'">
+                        <!-- Título como enlace azul (traducible) -->
+                        <h3 style="margin: 0 0 10px 0;">
+                            <a href="<?php echo BASE_URL; ?>/proyectos/<?php echo $proyecto['id']; ?>" 
+                               style="color: #0066cc; text-decoration: none;"
+                               onclick="event.stopPropagation();">
+                                <span data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['titulo']); ?>">
+                                    <?php echo htmlspecialchars($proyecto['titulo']); ?>
+                                </span>
+                            </a>
+                            <!-- Etiqueta de categoría inline (traducible) -->
+                            <span style="display: inline-block; margin-left: 10px; padding: 2px 8px; background: #0066cc; color: white; border-radius: 3px; font-size: 11px; font-weight: normal;">
+                                <?php 
+                                $iconos = [
+                                    'Programacion' => '💻',
+                                    'Hardware' => '🔧',
+                                    'Mods' => '🎮',
+                                    'GameMaker' => '🎲'
+                                ];
+                                echo $iconos[$proyecto['categoria']] ?? '⚙️';
+                                ?> 
+                                <span data-translatable="category" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['categoria']); ?>">
+                                    <?php echo htmlspecialchars($proyecto['categoria']); ?>
+                                </span>
+                            </span>
+                        </h3>
+                        
+                        <!-- Descripción (traducible) -->
+                        <p style="margin: 5px 0;" data-translatable="description" data-original-lang="es" data-original-text="<?php 
+                            $descripcion = strip_tags($proyecto['descripcion']);
+                            if (strlen($descripcion) > 200) {
+                                echo htmlspecialchars(substr($descripcion, 0, 200)) . '...';
+                            } else {
+                                echo htmlspecialchars($descripcion);
+                            }
+                        ?>">
+                            <?php 
+                            $descripcion = strip_tags($proyecto['descripcion']);
+                            if (strlen($descripcion) > 200) {
+                                echo htmlspecialchars(substr($descripcion, 0, 200)) . '...';
+                            } else {
+                                echo htmlspecialchars($descripcion);
+                            }
+                            ?>
+                        </p>
+                        
+                        <!-- Metadatos -->
+                        <small>
+                            👤 <?php echo __('projects.by'); ?> <strong><?php echo htmlspecialchars($proyecto['autor'] ?? 'Anónimo'); ?></strong> 
+                            | 📅 <?php echo Lang::formatDate($proyecto['fecha_actualizacion']); ?>
+                        </small>
+                        
+                        <!-- Preview de imagen del proyecto (al final) -->
+                        <?php 
+                        $archivos = isset($proyecto['archivos']) ? json_decode($proyecto['archivos'], true) : [];
+                        $imagenPreview = null;
+                        
+                        // Buscar primera imagen en archivos o usar imagen principal
+                        if (!empty($archivos)) {
+                            foreach ($archivos as $archivo) {
+                                $ext = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
+                                if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'])) {
+                                    $imagenPreview = $archivo;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!$imagenPreview && !empty($proyecto['imagen'])) {
+                            $imagenPreview = $proyecto['imagen'];
+                        }
+                        
+                        if ($imagenPreview): 
+                        ?>
+                            <div style="text-align: center; margin: 10px 0 0 0;">
+                                <img src="<?php echo BASE_URL . htmlspecialchars($imagenPreview); ?>" 
+                                     alt="Preview de <?php echo htmlspecialchars($proyecto['titulo']); ?>" 
+                                     style="max-width: 100%; max-height: 200px; border: 1px solid #999; object-fit: cover;">
+                            </div>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         <?php endif; ?>
-        
-        <!-- Filtros -->
-        <div class="filter-buttons">
-            <button class="xp-button" onclick="location.href='/proyectos'">Todos</button>
-            <button class="xp-button" onclick="location.href='/proyectos?categoria=Programacion'">Programación</button>
-            <button class="xp-button" onclick="location.href='/proyectos?categoria=Hardware'">Hardware</button>
-            <button class="xp-button" onclick="location.href='/proyectos?categoria=Mods'">Mods</button>
-            <button class="xp-button" onclick="location.href='/proyectos?categoria=GameMaker'">GameMaker</button>
-        </div>
-        
-        <div class="home-grid">
-            <?php foreach ($proyectos as $proyecto): ?>
-                <div class="xp-window">
-                    <div class="xp-titlebar">
-                        <span><?php echo $proyecto['categoria']; ?></span>
-                    </div>
-                    <div class="xp-content">
-                        <h3><?php echo htmlspecialchars($proyecto['titulo']); ?></h3>
-                        <p><?php echo htmlspecialchars($proyecto['descripcion']); ?></p>
-                        
-                        <?php if ($proyecto['imagen']): ?>
-                            <img src="<?php echo $proyecto['imagen']; ?>" style="width:100%; margin:10px 0;">
-                        <?php endif; ?>
-                        
-                        <?php if ($proyecto['video_url']): ?>
-                            <iframe src="<?php echo $proyecto['video_url']; ?>" width="100%" height="150"></iframe>
-                        <?php endif; ?>
-                        
-                        <div style="margin-top:10px;">
-                            <?php if ($proyecto['link1']): ?>
-                                <a href="<?php echo $proyecto['link1']; ?>" target="_blank" class="xp-button">Demo</a>
-                            <?php endif; ?>
-                            <?php if ($proyecto['link2']): ?>
-                                <a href="<?php echo $proyecto['link2']; ?>" target="_blank" class="xp-button">GitHub</a>
-                            <?php endif; ?>
-                        </div>
-                        
-                        <small>por <?php echo $proyecto['autor']; ?></small>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
     </div>
 </div>
+
+<script>
+function filtrarCategoria(categoria) {
+    if (categoria) {
+        window.location.href = '<?php echo BASE_URL; ?>/proyectos?categoria=' + categoria;
+    } else {
+        window.location.href = '<?php echo BASE_URL; ?>/proyectos';
+    }
+}
+</script>
 
 <?php require __DIR__ . '/../layout/footer.php'; ?>

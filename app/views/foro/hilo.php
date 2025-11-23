@@ -29,6 +29,9 @@ require __DIR__ . '/../layout/header.php';
 .comment-thread .xp-content p {
     margin: 0 0 8px 0;
 }
+.gallery-item { display: none; }
+.gallery-item.active { display: block; }
+.gallery-prev:hover, .gallery-next:hover { background: rgba(0,0,0,0.9) !important; }
 </style>
 
 <div class="xp-window" style="max-width: 900px; margin: 20px auto;">
@@ -49,7 +52,44 @@ require __DIR__ . '/../layout/header.php';
                     📅 <?php echo date('d/m/Y H:i', strtotime($hilo['fecha_creacion'])); ?>
                 </small>
             </div>
+        </div>
             <p style="margin: 10px 0;"><?php echo nl2br(htmlspecialchars($hilo['descripcion'])); ?></p>
+            
+            <?php 
+            // Mostrar galería de archivos
+            $archivos = isset($hilo['archivos']) ? json_decode($hilo['archivos'], true) : [];
+            if (!empty($archivos)): 
+            ?>
+            <div class="media-gallery" style="position: relative; margin: 20px 0; background: #000; border: 2px solid #999;">
+                <div class="gallery-container" id="gallery">
+                    <?php foreach ($archivos as $index => $archivo): ?>
+                        <?php 
+                        $ext = strtolower(pathinfo($archivo, PATHINFO_EXTENSION));
+                        $isVideo = in_array($ext, ['mp4', 'webm', 'ogg']);
+                        ?>
+                        <div class="gallery-item <?php echo $index === 0 ? 'active' : ''; ?>" data-index="<?php echo $index; ?>">
+                            <?php if ($isVideo): ?>
+                                <video controls style="max-width: 100%; max-height: 500px; display: block; margin: 0 auto;">
+                                    <source src="<?php echo BASE_URL . htmlspecialchars($archivo); ?>" type="video/<?php echo $ext; ?>">
+                                </video>
+                            <?php else: ?>
+                                <img src="<?php echo BASE_URL . htmlspecialchars($archivo); ?>" 
+                                     alt="Imagen <?php echo $index + 1; ?>" 
+                                     style="max-width: 100%; max-height: 500px; display: block; margin: 0 auto;">
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                
+                <?php if (count($archivos) > 1): ?>
+                    <button class="gallery-prev" onclick="changeSlide(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: 2px solid #fff; padding: 10px 15px; cursor: pointer; font-size: 18px; z-index: 10;">❮</button>
+                    <button class="gallery-next" onclick="changeSlide(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: 2px solid #fff; padding: 10px 15px; cursor: pointer; font-size: 18px; z-index: 10;">❯</button>
+                    <div style="text-align: center; padding: 10px; background: rgba(0,0,0,0.8); color: white;">
+                        <span id="gallery-counter">1 / <?php echo count($archivos); ?></span>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
         </div>
         
         <h3 style="margin: 20px 0 10px 0;">💬 Comentarios</h3>
@@ -146,6 +186,31 @@ require __DIR__ . '/../layout/header.php';
 </div>
 
 <script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.gallery-item');
+const totalSlides = slides.length;
+
+function showSlide(n) {
+    if (totalSlides === 0) return;
+    slides.forEach(slide => slide.classList.remove('active'));
+    if (n >= totalSlides) currentSlide = 0;
+    if (n < 0) currentSlide = totalSlides - 1;
+    slides[currentSlide].classList.add('active');
+    const counter = document.getElementById('gallery-counter');
+    if (counter) counter.textContent = (currentSlide + 1) + ' / ' + totalSlides;
+}
+
+function changeSlide(direction) {
+    currentSlide += direction;
+    showSlide(currentSlide);
+}
+
+// Soporte de teclado
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+});
+
 function toggleReply(replyId) {
     var replyForm = document.getElementById(replyId);
     if (replyForm.classList.contains('active')) {

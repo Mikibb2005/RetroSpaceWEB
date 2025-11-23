@@ -1,0 +1,497 @@
+/* macOS Big Sur Theme (Refined) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    /* Fondo Big Sur Oficial (Abstracto Colorido) */
+    background: url('https://4kwallpapers.com/images/wallpapers/macos-big-sur-apple-layers-fluidic-colorful-wwdc-2020-5120x2880-1455.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #000;
+    font-size: 13px;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Barra de Menú Superior (Header) */
+.xp-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 24px;
+    /* Altura estándar Mac */
+    background: rgba(0, 0, 0, 0.2);
+    /* Oscuro translúcido para contraste con fondo brillante */
+    backdrop-filter: blur(20px);
+    border-bottom: none;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: #fff;
+    /* Texto blanco */
+    font-weight: 500;
+    font-size: 13px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Navegación (Simulando menú de Mac) */
+.nav-grid {
+    display: flex;
+    gap: 18px;
+    margin: 0;
+}
+
+.nav-item {
+    background: transparent;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: opacity 0.2s;
+    line-height: 24px;
+    height: 24px;
+    border-radius: 4px;
+    font-size: 13px;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item:hover {
+    opacity: 1;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.nav-item.active {
+    font-weight: 600;
+    opacity: 1;
+}
+
+/* Simular logo de Apple (Primer item) */
+.nav-item:first-child::before {
+    content: '';
+    margin-right: 15px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* Dock (Footer transformado) */
+.taskbar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 70px;
+    width: auto;
+    min-width: 320px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px) saturate(120%);
+}
+
+/* Separador en el Dock */
+.taskbar::before {
+    content: '';
+    position: absolute;
+    right: 80px;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.15);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Iconos del Dock (Estilo Squircle Big Sur) */
+.start-button,
+.user-menu-btn,
+#theme-selector {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    /* Squircle */
+    margin: 0 6px;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Base para iconos */
+    border: none;
+    /* Ocultar texto original */
+    font-size: 0;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ocultar emojis y texto interno */
+.start-button>*,
+.user-menu-btn>* {
+    display: none;
+}
+
+.start-button:hover,
+.user-menu-btn:hover,
+#theme-selector:hover {
+    transform: scale(1.15) translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+/* Finder Icon */
+.start-button {
+    background: url('https://upload.wikimedia.org/wikipedia/commons/c/c9/Finder_Icon_macOS_Big_Sur.png') no-repeat center;
+    background-size: cover;
+}
+
+.start-button::after {
+    content: none;
+}
+
+/* Quitar contenido extra */
+
+/* User Icon */
+.user-menu {
+    position: relative;
+    margin-left: 0;
+}
+
+.user-menu-btn {
+    padding: 0;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg');
+    background-size: cover;
+}
+
+/* Settings Icon */
+.theme-selector-container {
+    margin: 0 !important;
+    /* Override inline styles */
+    display: flex;
+    align-items: center;
+}
+
+#theme-selector {
+    appearance: none;
+    -webkit-appearance: none;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/e/ea/Settings_%28iOS%29.png') no-repeat center;
+    background-size: cover;
+    color: transparent;
+    width: 54px !important;
+    /* Override inline width */
+    height: 54px !important;
+    /* Override inline height */
+    padding: 0 !important;
+    margin: 0 6px !important;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+#theme-selector:hover {
+    transform: scale(1.15) translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+#theme-selector option {
+    color: #000;
+    background: #fff;
+    font-size: 14px;
+}
+
+/* Dropdowns estilo Mac */
+.user-menu-dropdown {
+    display: none;
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(245, 245, 245, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    margin-bottom: 0;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px);
+    padding: 6px;
+    animation: popUp 0.2s ease-out;
+}
+
+@keyframes popUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Flechita del dropdown */
+.user-menu-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: rgba(245, 245, 245, 0.85) transparent transparent transparent;
+}
+
+.user-menu:hover .user-menu-dropdown {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+    color: #000;
+    font-size: 13px;
+    border-radius: 5px;
+}
+
+.dropdown-item:hover {
+    background: #007aff;
+    color: white;
+}
+
+/* Ventana macOS (Limpia y moderna) */
+.xp-window {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    /* Sombra profunda */
+    margin: 60px 20px 20px 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.xp-titlebar {
+    background: #f6f6f6;
+    /* Gris muy claro */
+    color: #3d3d3d;
+    padding: 0;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    /* Barra más alta */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.xp-titlebar-text {
+    font-size: 13px;
+    color: #444;
+    opacity: 0.8;
+}
+
+.xp-content {
+    padding: 24px;
+    background: #fff;
+    min-height: 200px;
+}
+
+/* Botones de ventana (Semáforo perfecto) */
+.window-controls {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    z-index: 10;
+}
+
+.win-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    font-size: 0;
+    cursor: default;
+    box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.15);
+    /* Borde sutil */
+    transition: all 0.1s;
+}
+
+/* Rojo */
+.win-btn.close {
+    background: #ff5f57;
+    order: 1;
+}
+
+/* Amarillo */
+.win-btn.min {
+    background: #febc2e;
+    order: 2;
+}
+
+/* Verde */
+.win-btn.max {
+    background: #28c840;
+    order: 3;
+}
+
+/* Hover effects (Símbolos oscuros) */
+.window-controls:hover .win-btn.close::after {
+    content: '×';
+    font-size: 9px;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.window-controls:hover .win-btn.min::after {
+    content: '−';
+    font-size: 9px;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.window-controls:hover .win-btn.max::after {
+    content: '+';
+    font-size: 9px;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+.main-content {
+    margin-top: 60px;
+    margin-bottom: 120px;
+    padding: 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Grids */
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+    align-items: stretch;
+}
+
+.home-grid .xp-window {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.home-grid .xp-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botones macOS (Estilo iOS/Big Sur) */
+.xp-button {
+    background: #fff;
+    border: 1px solid #d1d1d1;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-family: -apple-system, sans-serif;
+    cursor: pointer;
+    margin: 4px;
+    text-decoration: none;
+    color: #333;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.1s;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.xp-button:hover {
+    background: #f5f5f5;
+    border-color: #c0c0c0;
+}
+
+.xp-button:active {
+    background: #e5e5e5;
+    transform: scale(0.98);
+}
+
+/* Inputs */
+.xp-input,
+.xp-textarea,
+.xp-select {
+    border: 1px solid #d1d1d1;
+    padding: 10px 12px;
+    font-family: -apple-system, sans-serif;
+    width: 100%;
+    margin: 6px 0;
+    background: #fff;
+    border-radius: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.xp-input:focus {
+    border-color: #007aff;
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.15);
+    outline: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-grid {
+        display: none;
+    }
+
+    .home-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .taskbar {
+        width: 90%;
+        min-width: auto;
+        bottom: 15px;
+        height: 60px;
+    }
+
+    .start-button,
+    .user-menu-btn,
+    #theme-selector {
+        width: 44px;
+        height: 44px;
+    }
+}

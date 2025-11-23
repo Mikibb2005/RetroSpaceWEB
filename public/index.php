@@ -23,6 +23,9 @@ spl_autoload_register(function ($class) {
     if (file_exists($file)) require $file;
 });
 
+// Cargar sistema de idiomas
+require_once APP_PATH . '/app/helpers/LanguageHelper.php';
+
 // Iniciar router
 $router = new Router();
 
@@ -70,6 +73,22 @@ if (preg_match('/^\/diario\/crear$/', $path)) {
 } elseif (preg_match('/^\/proyectos\/eliminar\/(\d+)$/', $path, $matches)) {
     $controller = new ProyectosController();
     $controller->eliminar($matches[1]);
+    exit;
+} elseif (preg_match('/^\/proyectos\/crear-actualizacion\/(\d+)$/', $path, $matches)) {
+    $controller = new ProyectosController();
+    $controller->crearActualizacion($matches[1]);
+    exit;
+} elseif (preg_match('/^\/proyectos\/actualizacion\/(\d+)$/', $path, $matches)) {
+    $controller = new ProyectosController();
+    $controller->verActualizacion($matches[1]);
+    exit;
+} elseif (preg_match('/^\/proyectos\/comentar\/(\d+)$/', $path, $matches)) {
+    $controller = new ProyectosController();
+    $controller->comentar($matches[1]);
+    exit;
+} elseif (preg_match('/^\/proyectos\/ver\/(\d+)$/', $path, $matches)) { // Alias explícito
+    $controller = new ProyectosController();
+    $controller->ver($matches[1]);
     exit;
 } elseif (preg_match('/^\/proyectos\/(\d+)$/', $path, $matches)) {
     $controller = new ProyectosController();

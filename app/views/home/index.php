@@ -37,13 +37,13 @@
         <div class="xp-window">
             <div class="xp-titlebar">
                 <div class="xp-titlebar-text">
-                    💬 Últimas Discusiones del Foro
+                    💬 <?php echo __('home.recent_threads'); ?>
                 </div>
             </div>
             <div class="xp-content">
                 <?php if (empty($datos['ultimos_hilos'])): ?>
                     <p style="text-align: center; padding: 20px; color: #666;">
-                        No hay hilos todavía. <a href="<?php echo BASE_URL; ?>/foro/crear">¡Sé el primero en crear uno!</a>
+                        <?php echo __('forum.none'); ?> <a href="<?php echo BASE_URL; ?>/foro/crear"><?php echo __('forum.create_first'); ?></a>
                     </p>
                 <?php else: ?>
                     <ul class="xp-list">
@@ -51,7 +51,7 @@
                             <li class="xp-list-item foro-item" onclick="location.href='<?php echo BASE_URL; ?>/foro/hilo/<?php echo $hilo['id']; ?>'">
                                 <div style="display: flex; justify-content: space-between; align-items: start;">
                                     <div style="flex: 1;">
-                                        <strong style="font-size: 1.1em; color: #0066cc;">
+                                        <strong style="font-size: 1.1em; color: #0066cc;" data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($hilo['titulo']); ?>">
                                             <?php echo htmlspecialchars($hilo['titulo']); ?>
                                         </strong>
                                         <br>
@@ -61,23 +61,23 @@
                                         <br>
                                         <small style="color: #666;">
                                             👤 por <strong><?php echo htmlspecialchars($hilo['autor']); ?></strong>
-                                            • 📅 <?php echo date('d/m/Y H:i', strtotime($hilo['fecha_creacion'])); ?>
+                                            • 📅 <?php echo Lang::formatDate($hilo['fecha_creacion'], true); ?>
                                         </small>
                                     </div>
                                     <div style="text-align: right; min-width: 80px;">
                                         <div style="background: #0066cc; color: white; padding: 5px 10px; border-radius: 3px; font-weight: bold;">
                                             💬 <?php echo $hilo['total_comentarios']; ?>
                                         </div>
-                                        <small style="color: #666; display: block; margin-top: 3px;">respuestas</small>
+                                        <small style="color: #666; display: block; margin-top: 3px;"><?php echo __('home.responses'); ?></small>
                                     </div>
                                 </div>
                             </li>
                         <?php endforeach; ?>
                     </ul>
                     <div style="text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #999;">
-                        <a href="<?php echo BASE_URL; ?>/foro" class="xp-button">Ver Todos los Hilos →</a>
+                        <a href="<?php echo BASE_URL; ?>/foro" class="xp-button"><?php echo __('home.see_all_threads'); ?></a>
                         <?php if (isset($_SESSION['user_id'])): ?>
-                            <a href="<?php echo BASE_URL; ?>/foro/crear" class="xp-button" style="margin-left: 10px;">✍️ Crear Hilo Nuevo</a>
+                            <a href="<?php echo BASE_URL; ?>/foro/crear" class="xp-button" style="margin-left: 10px;"><?php echo __('forum.new_thread'); ?></a>
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
@@ -90,31 +90,31 @@
         <!-- Estadísticas -->
         <div class="xp-window">
             <div class="xp-titlebar">
-                <span>📊 Estadísticas de RetroSpace</span>
+                <span>📊 <?php echo __('home.stats'); ?></span>
             </div>
             <div class="xp-content">
-                <p>👥 Usuarios: <strong><?php echo $datos['estadisticas']['usuarios']; ?></strong></p>
-                <p>💬 Hilos: <strong><?php echo $datos['estadisticas']['hilos']; ?></strong></p>
-                <p>💭 Comentarios: <strong><?php echo $datos['estadisticas']['comentarios']; ?></strong></p>
-                <p>📝 Posts Blog: <strong><?php echo $datos['estadisticas']['posts']; ?></strong></p>
-                <p>⚡ Proyectos: <strong><?php echo $datos['estadisticas']['proyectos']; ?></strong></p>
+                <p>👥 <?php echo __('home.users'); ?>: <strong><?php echo $datos['estadisticas']['usuarios']; ?></strong></p>
+                <p>💬 <?php echo __('home.threads'); ?>: <strong><?php echo $datos['estadisticas']['hilos']; ?></strong></p>
+                <p>💭 <?php echo __('home.comments'); ?>: <strong><?php echo $datos['estadisticas']['comentarios']; ?></strong></p>
+                <p>📝 <?php echo __('home.blog_posts'); ?>: <strong><?php echo $datos['estadisticas']['posts']; ?></strong></p>
+                <p>⚡ <?php echo __('home.projects'); ?>: <strong><?php echo $datos['estadisticas']['proyectos']; ?></strong></p>
             </div>
         </div>
 
         <!-- Últimos Posts del Blog -->
         <div class="xp-window">
             <div class="xp-titlebar">
-                <span>📖 Últimas Entradas del Blog</span>
+                <span>📖 <?php echo __('home.recent_posts'); ?></span>
             </div>
             <div class="xp-content">
                 <?php if (empty($datos['ultimos_posts'])): ?>
-                    <p style="color: #666; font-size: 0.9em;">No hay posts todavía</p>
+                    <p style="color: #666; font-size: 0.9em;"><?php echo __('diary.none'); ?></p>
                 <?php else: ?>
                     <ul class="xp-list">
                         <?php foreach ($datos['ultimos_posts'] as $post): ?>
                             <li class="xp-list-item" style="cursor: pointer;" onclick="location.href='<?php echo BASE_URL; ?>/diario/<?php echo $post['id']; ?>'">
-                                <strong><?php echo htmlspecialchars($post['titulo']); ?></strong><br>
-                                <small>por <?php echo htmlspecialchars($post['autor']); ?> - <?php echo date('d/m/Y', strtotime($post['fecha_publicacion'])); ?></small>
+                                <strong data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($post['titulo']); ?>"><?php echo htmlspecialchars($post['titulo']); ?></strong><br>
+                                <small><?php echo __('diary.by_author'); ?> <?php echo htmlspecialchars($post['autor']); ?> - <?php echo Lang::formatDate($post['fecha_publicacion']); ?></small>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -125,17 +125,17 @@
         <!-- Proyectos destacados -->
         <div class="xp-window">
             <div class="xp-titlebar">
-                <span>⚡ Proyectos Destacados</span>
+                <span>⚡ <?php echo __('home.featured_projects'); ?></span>
             </div>
             <div class="xp-content">
                 <?php if (empty($datos['proyectos_destacados'])): ?>
-                    <p style="color: #666; font-size: 0.9em;">No hay proyectos todavía</p>
+                    <p style="color: #666; font-size: 0.9em;"><?php echo __('projects.none'); ?></p>
                 <?php else: ?>
                     <ul class="xp-list">
                         <?php foreach ($datos['proyectos_destacados'] as $proyecto): ?>
                             <li class="xp-list-item" style="cursor: pointer;" onclick="location.href='<?php echo BASE_URL; ?>/proyectos'">
-                                <strong><?php echo htmlspecialchars($proyecto['titulo']); ?></strong><br>
-                                <small><?php echo htmlspecialchars($proyecto['categoria']); ?></small>
+                                <strong data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['titulo']); ?>"><?php echo htmlspecialchars($proyecto['titulo']); ?></strong><br>
+                                <small data-translatable="category" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['categoria']); ?>"><?php echo htmlspecialchars($proyecto['categoria']); ?></small>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -146,7 +146,7 @@
         <!-- Último video -->
         <div class="xp-window">
             <div class="xp-titlebar">
-                <span>▶️ Último Video</span>
+                <span>▶️ <?php echo __('home.latest_video'); ?></span>
             </div>
             <div class="xp-content">
                 <iframe width="100%" height="180" 
