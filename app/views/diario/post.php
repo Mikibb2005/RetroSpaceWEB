@@ -3,17 +3,17 @@
 <div class="xp-window" style="max-width: 900px; margin: 20px auto;">
     <div class="xp-titlebar">
         <div class="xp-titlebar-text">
-            📝 <?php echo htmlspecialchars($post['titulo']); ?>
+            📝 <span data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($post['titulo']); ?>"><?php echo htmlspecialchars($post['titulo']); ?></span>
         </div>
     </div>
     <div class="xp-content">
         <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-            <small>👤 por <strong><?php echo htmlspecialchars($post['autor']); ?></strong> | 📅 <?php echo date('d/m/Y H:i', strtotime($post['fecha_publicacion'])); ?></small>
+            <small>👤 <?php echo __('diary.by_author'); ?> <strong><?php echo htmlspecialchars($post['autor']); ?></strong> | 📅 <?php echo Lang::formatDate($post['fecha_publicacion'], true); ?></small>
             
             <?php if ($isAdmin): ?>
                 <div style="display: flex; gap: 10px;">
-                    <a href="<?php echo BASE_URL; ?>/diario/editar/<?php echo $post['id']; ?>" class="xp-button">✏️ Editar</a>
-                    <button onclick="confirmarEliminar(<?php echo $post['id']; ?>)" class="xp-button" style="background: #cc0000; color: white;">🗑️ Eliminar</button>
+                    <a href="<?php echo BASE_URL; ?>/diario/editar/<?php echo $post['id']; ?>" class="xp-button"><?php echo __('btn.edit'); ?></a>
+                    <button onclick="confirmarEliminar(<?php echo $post['id']; ?>)" class="xp-button" style="background: #cc0000; color: white;"><?php echo __('btn.delete'); ?></button>
                 </div>
             <?php endif; ?>
         </div>
@@ -59,7 +59,7 @@
                  alt="Imagen del post" style="max-width:100%; margin:10px 0; border: 2px solid #999;">
         <?php endif; ?>
         
-        <div style="margin: 20px 0; line-height: 1.6;">
+        <div style="margin: 20px 0; line-height: 1.6;" data-translatable="description" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($post['contenido']); ?>">
             <?php echo nl2br(htmlspecialchars($post['contenido'])); ?>
         </div>
         
@@ -70,7 +70,7 @@
         <?php endif; ?>
         
         <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #999;">
-            <a href="<?php echo BASE_URL; ?>/diario" class="xp-button">← Volver al Diario</a>
+            <a href="<?php echo BASE_URL; ?>/diario" class="xp-button"><?php echo __('diary.back'); ?></a>
         </div>
     </div>
 </div>

@@ -14,7 +14,7 @@ require __DIR__ . '/../layout/header.php';
 <div class="xp-window" style="max-width: 900px; margin: 20px auto;">
     <div class="xp-titlebar">
         <div class="xp-titlebar-text">
-            👤 Perfil de <?php echo htmlspecialchars($user['username']); ?>
+            👤 <?php echo __('profile.title'); ?>: <?php echo htmlspecialchars($user['username']); ?>
         </div>
     </div>
     <div class="xp-content">
@@ -35,7 +35,7 @@ require __DIR__ . '/../layout/header.php';
                     <?php endif; ?>
                 </h2>
                 <p style="margin: 5px 0;"><strong>Rol:</strong> <?php echo ucfirst($user['rol']); ?></p>
-                <p style="margin: 5px 0;"><strong>Miembro desde:</strong> <?php echo date('d/m/Y', strtotime($user['fecha_registro'])); ?></p>
+                <p style="margin: 5px 0;"><strong><?php echo __('profile.joined'); ?>:</strong> <?php echo Lang::formatDate($user['fecha_registro']); ?></p>
                 
                 <?php 
                 $etiquetas = isset($user['etiquetas_so']) ? json_decode($user['etiquetas_so'], true) : [];
@@ -58,9 +58,9 @@ require __DIR__ . '/../layout/header.php';
                         <a href="/perfil/editar" class="xp-button">✏️ Editar Perfil</a>
                     <?php elseif (isset($_SESSION['user_id'])): ?>
                         <?php if ($isFollowing): ?>
-                            <a href="/perfil/<?php echo $user['id']; ?>/unfollow" class="xp-button">Dejar de seguir</a>
+                            <a href="<?php echo BASE_URL; ?>/perfil/<?php echo $user['id']; ?>/unfollow" class="xp-button"><?php echo __('btn.unfollow'); ?></a>
                         <?php else: ?>
-                            <a href="/perfil/<?php echo $user['id']; ?>/follow" class="xp-button">Seguir</a>
+                            <a href="<?php echo BASE_URL; ?>/perfil/<?php echo $user['id']; ?>/follow" class="xp-button"><?php echo __('btn.follow'); ?></a>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
@@ -69,17 +69,17 @@ require __DIR__ . '/../layout/header.php';
 
         <!-- Pestañas -->
         <div class="xp-tabs" style="margin-bottom: 10px; border-bottom: 1px solid #999; padding-bottom: 5px;">
-            <button onclick="openTab(event, 'tab-actividad')" class="xp-button tab-link active">Actividad</button>
-            <button onclick="openTab(event, 'tab-bio')" class="xp-button tab-link">Biografía</button>
-            <button onclick="openTab(event, 'tab-seguidores')" class="xp-button tab-link">Seguidores (<?php echo count($followers); ?>)</button>
-            <button onclick="openTab(event, 'tab-siguiendo')" class="xp-button tab-link">Siguiendo (<?php echo count($following); ?>)</button>
+            <button onclick="openTab(event, 'tab-actividad')" class="xp-button tab-link active"><?php echo __('profile.activity'); ?></button>
+            <button onclick="openTab(event, 'tab-bio')" class="xp-button tab-link"><?php echo __('profile.bio'); ?></button>
+            <button onclick="openTab(event, 'tab-seguidores')" class="xp-button tab-link"><?php echo __('profile.followers'); ?> (<?php echo count($followers); ?>)</button>
+            <button onclick="openTab(event, 'tab-siguiendo')" class="xp-button tab-link"><?php echo __('profile.following'); ?> (<?php echo count($following); ?>)</button>
         </div>
 
         <!-- Contenido Pestañas -->
         <div id="tab-actividad" class="tab-content" style="display: block;">
-            <h3>Actividad Reciente</h3>
+            <h3><?php echo __('profile.activity'); ?></h3>
             <?php if (empty($activity)): ?>
-                <p>No hay actividad reciente.</p>
+                <p><?php echo __('profile.no_activity'); ?></p>
             <?php else: ?>
                 <ul class="xp-list">
                     <?php foreach ($activity as $item): ?>
@@ -90,7 +90,7 @@ require __DIR__ . '/../layout/header.php';
                                 💬 <strong>Comentario:</strong> <?php echo htmlspecialchars(substr($item['content'], 0, 100)); ?><?php echo strlen($item['content']) > 100 ? '...' : ''; ?>
                             <?php endif; ?>
                             <br>
-                            <small style="color: #666;">📅 <?php echo date('d/m/Y H:i', strtotime($item['date'])); ?></small>
+                            <small style="color: #666;">📅 <?php echo Lang::formatDate($item['date'], true); ?></small>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -98,20 +98,20 @@ require __DIR__ . '/../layout/header.php';
         </div>
 
         <div id="tab-bio" class="tab-content" style="display: none;">
-            <h3>Biografía</h3>
+            <h3><?php echo __('profile.bio'); ?></h3>
             <?php if ($user['biografia']): ?>
-                <div style="padding: 10px; background: white; border: 2px inset #fff;">
+                <div style="padding: 10px; background: white; border: 2px inset #fff;" data-translatable="bio" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($user['biografia']); ?>">
                     <?php echo nl2br(htmlspecialchars($user['biografia'])); ?>
                 </div>
             <?php else: ?>
-                <p>Este usuario no ha escrito una biografía aún.</p>
+                <p><?php echo __('profile.no_bio'); ?></p>
             <?php endif; ?>
         </div>
 
         <div id="tab-seguidores" class="tab-content" style="display: none;">
-            <h3>Seguidores</h3>
+            <h3><?php echo __('profile.followers'); ?></h3>
             <?php if (empty($followers)): ?>
-                <p>Nadie sigue a este usuario aún.</p>
+                <p><?php echo __('msg.no_results'); ?></p>
             <?php else: ?>
                 <ul class="xp-list">
                     <?php foreach ($followers as $f): ?>
@@ -131,9 +131,9 @@ require __DIR__ . '/../layout/header.php';
         </div>
 
         <div id="tab-siguiendo" class="tab-content" style="display: none;">
-            <h3>Siguiendo</h3>
+            <h3><?php echo __('profile.following'); ?></h3>
             <?php if (empty($following)): ?>
-                <p>Este usuario no sigue a nadie aún.</p>
+                <p><?php echo __('msg.no_results'); ?></p>
             <?php else: ?>
                 <ul class="xp-list">
                     <?php foreach ($following as $f): ?>

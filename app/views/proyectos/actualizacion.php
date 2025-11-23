@@ -6,7 +6,7 @@ require __DIR__ . '/../layout/header.php';
 <div class="xp-window" style="max-width: 800px; margin: 20px auto;">
     <div class="xp-titlebar">
         <div class="xp-titlebar-text">
-            📜 <?php echo htmlspecialchars($proyecto['titulo']); ?>: <?php echo htmlspecialchars($actualizacion['titulo']); ?>
+            📜 <span data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['titulo']); ?>"><?php echo htmlspecialchars($proyecto['titulo']); ?></span>: <span data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($actualizacion['titulo']); ?>"><?php echo htmlspecialchars($actualizacion['titulo']); ?></span>
         </div>
     </div>
     <div class="xp-content">
@@ -14,13 +14,13 @@ require __DIR__ . '/../layout/header.php';
             <a href="<?php echo BASE_URL; ?>/proyectos/<?php echo $proyecto['id']; ?>" class="xp-button">← Volver al Proyecto</a>
         </div>
 
-        <h2 style="margin-top: 0;"><?php echo htmlspecialchars($actualizacion['titulo']); ?></h2>
+        <h2 style="margin-top: 0;" data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($actualizacion['titulo']); ?>"><?php echo htmlspecialchars($actualizacion['titulo']); ?></h2>
         <div style="font-size: 0.9em; color: #666; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-            Publicado el <?php echo date('d/m/Y H:i', strtotime($actualizacion['fecha_creacion'])); ?>
-            por <strong><?php echo htmlspecialchars($proyecto['autor']); ?></strong>
+            <?php echo __('diary.published_on'); ?> <?php echo Lang::formatDate($actualizacion['fecha_creacion'], true); ?>
+            <?php echo __('diary.by_author'); ?> <strong><?php echo htmlspecialchars($proyecto['autor']); ?></strong>
         </div>
 
-        <div style="line-height: 1.6; font-size: 1.1em; margin-bottom: 20px;">
+        <div style="line-height: 1.6; font-size: 1.1em; margin-bottom: 20px;" data-translatable="description" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($actualizacion['contenido']); ?>">
             <?php echo nl2br(htmlspecialchars($actualizacion['contenido'])); ?>
         </div>
 
@@ -50,12 +50,12 @@ require __DIR__ . '/../layout/header.php';
 
         <!-- Sección de Comentarios -->
         <div style="margin-top: 40px; border-top: 2px solid #999; padding-top: 20px;">
-            <h3>💬 Comentarios (<?php echo count($comentarios); ?>)</h3>
+            <h3>💬 <?php echo __('projects.comments'); ?> (<?php echo count($comentarios); ?>)</h3>
 
             <!-- Lista de comentarios -->
             <div style="margin-bottom: 30px;">
                 <?php if (empty($comentarios)): ?>
-                    <p>No hay comentarios aún. ¡Sé el primero!</p>
+                    <p><?php echo __('diary.no_comments'); ?> <?php echo __('diary.be_first'); ?></p>
                 <?php else: ?>
                     <?php foreach ($comentarios as $com): 
                         $esAutorProyecto = ($com['autor_id'] == $proyecto['autor_id']);
@@ -72,9 +72,9 @@ require __DIR__ . '/../layout/header.php';
                                 
                                 <strong><?php echo htmlspecialchars($com['username']); ?></strong>
                                 <?php echo $badgeAutor; ?>
-                                <small style="margin-left: auto; color: #666;"><?php echo date('d/m/Y H:i', strtotime($com['fecha_creacion'])); ?></small>
+                                <small style="margin-left: auto; color: #666;"><?php echo Lang::formatDate($com['fecha_creacion'], true); ?></small>
                             </div>
-                            <div style="padding-left: 40px;">
+                            <div style="padding-left: 40px;" data-translatable="comment" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($com['contenido']); ?>">
                                 <?php echo nl2br(htmlspecialchars($com['contenido'])); ?>
                             </div>
                         </div>
@@ -86,15 +86,15 @@ require __DIR__ . '/../layout/header.php';
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div style="background: #eee; padding: 15px; border: 1px solid #999;">
                     <form method="POST" action="<?php echo BASE_URL; ?>/proyectos/comentar/<?php echo $actualizacion['id']; ?>">
-                        <label><strong>Escribir un comentario:</strong></label>
-                        <textarea name="contenido" class="xp-textarea" rows="3" required placeholder="Comparte tu opinión..."></textarea>
+                        <label><strong><?php echo __('diary.add_comment'); ?>:</strong></label>
+                        <textarea name="contenido" class="xp-textarea" rows="3" required placeholder="<?php echo __('diary.comment_placeholder'); ?>"></textarea>
                         <div style="text-align: right; margin-top: 10px;">
-                            <button type="submit" class="xp-button">Enviar Comentario</button>
+                            <button type="submit" class="xp-button"><?php echo __('btn.submit'); ?></button>
                         </div>
                     </form>
                 </div>
             <?php else: ?>
-                <p><a href="<?php echo BASE_URL; ?>/login">Inicia sesión</a> para comentar.</p>
+                <p><a href="<?php echo BASE_URL; ?>/login"><?php echo __('user.login'); ?></a></p>
             <?php endif; ?>
         </div>
     </div>

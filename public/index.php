@@ -34,7 +34,9 @@ $router->addRoute('home', 'HomeController', 'index');
 $router->addRoute('diario', 'DiarioController', 'index');
 $router->addRoute('proyectos', 'ProyectosController', 'index');
 $router->addRoute('foro', 'ForoController', 'index');
-$router->addRoute('contacto', 'HomeController', 'contacto');
+$router->addRoute('juegos', 'ComingSoonController', 'games');
+$router->addRoute('youtube', 'ComingSoonController', 'youtube');
+$router->addRoute('contacto', 'ContactoController', 'index');
 $router->addRoute('login', 'AuthController', 'login');
 $router->addRoute('logout', 'AuthController', 'logout');
 
@@ -140,9 +142,14 @@ if (preg_match('/^\/diario\/crear$/', $path)) {
     $page = 'diario';
 } elseif (preg_match('/\/proyectos$/', $path)) {
     $page = 'proyectos';
-} elseif (preg_match('/\/foro$/', $path)) {
+} elseif (preg_match('/^\\/foro$/', $path)) {
     $page = 'foro';
-} elseif (preg_match('/\/contacto$/', $path)) {
+} elseif (preg_match('/^\/contacto\/enviar$/', $path)) {
+    require_once __DIR__ . '/../app/controllers/ContactoController.php';
+    $controller = new ContactoController();
+    $controller->enviar();
+    exit;
+} elseif (preg_match('/^\/contacto$/', $path)) {
     $page = 'contacto';
 }
 

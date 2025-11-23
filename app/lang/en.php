@@ -127,4 +127,36 @@ return [
     'msg.error' => 'Error',
     'msg.loading' => 'Loading...',
     'msg.no_results' => 'No results found.',
+    
+    // Contact
+    'contact.title' => 'Contact',
+    'contact.info_title' => 'How to contact me?',
+    'contact.info_text' => 'You can send me a message using the form below or contact me directly via email or social networks.',
+    'contact.email' => 'Email',
+    'contact.social' => 'Social Networks',
+    'contact.social_text' => 'Find me also in the community forum',
+    'contact.name' => 'Name',
+    'contact.name_placeholder' => 'Your full name',
+    'contact.email_placeholder' => 'your@email.com',
+    'contact.subject' => 'Subject',
+    'contact.subject_placeholder' => 'What is it about?',
+    'contact.message' => 'Message',
+    'contact.message_placeholder' => 'Write your message here...',
+    'contact.characters' => 'characters',
+    'contact.privacy_title' => 'Privacy',
+    'contact.privacy_text' => 'Your information will be stored securely and only used to respond to your message. We do not share data with third parties.',
+    'contact.success_title' => 'Message sent successfully!',
+    'contact.success_message' => 'Thank you for contacting me. I will respond as soon as possible.',
+    'contact.error_title' => 'Error sending',
+    'contact.error_save' => 'Could not save the message. Please try again.',
+    'contact.error_required' => 'Please fill in all required fields.',
+    'contact.error_message_short' => 'The message must have at least 10 characters.',
+    'contact.sending' => 'Sending',
+    
+    // Additional buttons
+    'btn.reset' => 'Reset',
+    'btn.send' => 'Send Message',
+    
+    // Errors
+    'error.csrf' => 'Invalid security token. Please reload the page.',
 ];

@@ -6,33 +6,33 @@ require __DIR__ . '/../layout/header.php';
 <div class="xp-window" style="max-width: 900px; margin: 20px auto;">
     <div class="xp-titlebar">
         <div class="xp-titlebar-text">
-            ⚡ <?php echo htmlspecialchars($proyecto['titulo']); ?>
+            ⚡ <span data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['titulo']); ?>"><?php echo htmlspecialchars($proyecto['titulo']); ?></span>
         </div>
     </div>
     <div class="xp-content">
         <!-- Cabecera del Proyecto -->
         <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
-                <span style="background: #0066cc; color: white; padding: 2px 8px; border-radius: 3px; font-size: 0.9em;">
+                <span style="background: #0066cc; color: white; padding: 2px 8px; border-radius: 3px; font-size: 0.9em;" data-translatable="category" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['categoria']); ?>">
                     <?php echo htmlspecialchars($proyecto['categoria']); ?>
                 </span>
                 <div style="margin-top: 5px; font-size: 0.9em; color: #444;">
-                    Autor: <strong><?php echo htmlspecialchars($proyecto['autor'] ?? 'Anónimo'); ?></strong>
+                    <?php echo __('diary.by_author'); ?>: <strong><?php echo htmlspecialchars($proyecto['autor'] ?? 'Anónimo'); ?></strong>
                     <br>
-                    Creado: <?php echo date('d/m/Y', strtotime($proyecto['fecha_creacion'])); ?>
+                    <?php echo __('diary.published_on'); ?>: <?php echo Lang::formatDate($proyecto['fecha_creacion']); ?>
                 </div>
             </div>
             
             <?php if ($canEdit): ?>
                 <div style="display: flex; gap: 10px;">
-                    <a href="<?php echo BASE_URL; ?>/proyectos/editar/<?php echo $proyecto['id']; ?>" class="xp-button">✏️ Editar Info</a>
-                    <button onclick="confirmarEliminar(<?php echo $proyecto['id']; ?>)" class="xp-button" style="background: #cc0000; color: white;">🗑️ Eliminar</button>
+                    <a href="<?php echo BASE_URL; ?>/proyectos/editar/<?php echo $proyecto['id']; ?>" class="xp-button"><?php echo __('btn.edit'); ?></a>
+                    <button onclick="confirmarEliminar(<?php echo $proyecto['id']; ?>)" class="xp-button" style="background: #cc0000; color: white;"><?php echo __('btn.delete'); ?></button>
                 </div>
             <?php endif; ?>
         </div>
         
         <!-- Descripción Principal -->
-        <div style="margin: 20px 0; line-height: 1.6; font-size: 1.1em;">
+        <div style="margin: 20px 0; line-height: 1.6; font-size: 1.1em;" data-translatable="description" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['descripcion']); ?>">
             <?php echo nl2br(htmlspecialchars($proyecto['descripcion'])); ?>
         </div>
         
@@ -83,7 +83,7 @@ require __DIR__ . '/../layout/header.php';
         <!-- HISTORIAL DE ACTUALIZACIONES -->
         <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2 style="margin: 0;">📋 Historial de Actualizaciones</h2>
+                <h2 style="margin: 0;">📋 <?php echo __('projects.updates'); ?></h2>
                 <?php if ($isOwner): ?>
                     <a href="<?php echo BASE_URL; ?>/proyectos/crear-actualizacion/<?php echo $proyecto['id']; ?>" class="xp-button" style="font-weight: bold;">+ Nueva Actualización</a>
                 <?php endif; ?>
@@ -98,11 +98,11 @@ require __DIR__ . '/../layout/header.php';
                     <div class="xp-window" style="margin-bottom: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                         <div class="xp-titlebar">
                             <div class="xp-titlebar-text">
-                                📅 <?php echo date('d/m/Y', strtotime($act['fecha_creacion'])); ?> - <strong><?php echo htmlspecialchars($act['titulo']); ?></strong>
+                                📅 <?php echo Lang::formatDate($act['fecha_creacion']); ?> - <strong data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($act['titulo']); ?>"><?php echo htmlspecialchars($act['titulo']); ?></strong>
                             </div>
                         </div>
                         <div class="xp-content">
-                            <div style="margin-bottom: 15px; line-height: 1.5;">
+                            <div style="margin-bottom: 15px; line-height: 1.5;" data-translatable="description" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($act['contenido']); ?>">
                                 <?php echo nl2br(htmlspecialchars($act['contenido'])); ?>
                             </div>
 
@@ -131,21 +131,23 @@ require __DIR__ . '/../layout/header.php';
 
                             <!-- Comentarios Preview -->
                             <div style="margin-top: 15px; background: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                                <div style="font-weight: bold; font-size: 0.9em; margin-bottom: 5px;">💬 Últimos comentarios:</div>
+                                <div style="font-weight: bold; font-size: 0.9em; margin-bottom: 5px;">💬 <?php echo __('projects.comments'); ?>:</div>
                                 <?php if (empty($act['comentarios_preview'])): ?>
                                     <p style="font-size: 0.85em; color: #666; margin: 0;">Sé el primero en comentar.</p>
                                 <?php else: ?>
                                     <?php foreach ($act['comentarios_preview'] as $com): ?>
                                         <div style="font-size: 0.85em; margin-bottom: 4px; border-bottom: 1px dotted #ccc; padding-bottom: 2px;">
                                             <strong><?php echo htmlspecialchars($com['username']); ?>:</strong>
-                                            <?php echo htmlspecialchars(substr($com['contenido'], 0, 80)) . (strlen($com['contenido']) > 80 ? '...' : ''); ?>
+                                            <span data-translatable="comment" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($com['contenido']); ?>">
+                                                <?php echo htmlspecialchars(substr($com['contenido'], 0, 80)) . (strlen($com['contenido']) > 80 ? '...' : ''); ?>
+                                            </span>
                                         </div>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                                 
                                 <div style="margin-top: 10px; text-align: right;">
                                     <a href="<?php echo BASE_URL; ?>/proyectos/actualizacion/<?php echo $act['id']; ?>" class="xp-button" style="font-size: 0.9em;">
-                                        Ver post completo y <?php echo $act['total_comentarios']; ?> comentarios
+                                        <?php echo __('btn.view'); ?> <?php echo $act['total_comentarios']; ?> <?php echo __('projects.comments'); ?>
                                     </a>
                                 </div>
                             </div>

@@ -122,9 +122,42 @@ return [
     'time.hours' => 'horas',
     'time.days' => 'días',
     
+    
     // Mensajes
     'msg.success' => 'Éxito',
     'msg.error' => 'Error',
     'msg.loading' => 'Cargando...',
     'msg.no_results' => 'No se encontraron resultados.',
+    
+    // Contacto
+    'contact.title' => 'Contacto',
+    'contact.info_title' => '¿Cómo contactarme?',
+    'contact.info_text' => 'Puedes enviarme un mensaje usando el formulario a continuación o contactarme directamente por email o redes sociales.',
+    'contact.email' => 'Email',
+    'contact.social' => 'Redes Sociales',
+    'contact.social_text' => 'Encuéntrame también en el foro de la comunidad',
+    'contact.name' => 'Nombre',
+    'contact.name_placeholder' => 'Tu nombre completo',
+    'contact.email_placeholder' => 'tu@email.com',
+    'contact.subject' => 'Asunto',
+    'contact.subject_placeholder' => '¿De qué se trata?',
+    'contact.message' => 'Mensaje',
+    'contact.message_placeholder' => 'Escribe tu mensaje aquí...',
+    'contact.characters' => 'caracteres',
+    'contact.privacy_title' => 'Privacidad',
+    'contact.privacy_text' => 'Tu información se almacenará de forma segura y solo se usará para responder tu mensaje. No compartimos datos con terceros.',
+    'contact.success_title' => '¡Mensaje enviado con éxito!',
+    'contact.success_message' => 'Gracias por contactarme. Responderé lo antes posible.',
+    'contact.error_title' => 'Error al enviar',
+    'contact.error_save' => 'No se pudo guardar el mensaje. Por favor, inténtalo de nuevo.',
+    'contact.error_required' => 'Por favor, completa todos los campos obligatorios.',
+    'contact.error_message_short' => 'El mensaje debe tener al menos 10 caracteres.',
+    'contact.sending' => 'Enviando',
+    
+    // Botones adicionales
+    'btn.reset' => 'Limpiar',
+    'btn.send' => 'Enviar Mensaje',
+    
+    // Errores
+    'error.csrf' => 'Token de seguridad inválido. Por favor, recarga la página.',
 ];

@@ -4,11 +4,39 @@
  * Endpoint: /api/translate.php
  */
 
+// Manejo de errores robusto: SIEMPRE devolver JSON
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    http_response_code(500);
+    echo json_encode([
+        'error' => 'PHP Error',
+        'message' => $errstr,
+        'file' => basename($errfile),
+        'line' => $errline
+    ]);
+    exit;
+});
+
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error !== null && in_array($error['type'], [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE])) {
+        http_response_code(500);
+        echo json_encode([
+            'error' => 'Fatal Error',
+            'message' => $error['message'],
+            'file' => basename($error['file']),
+            'line' => $error['line']
+        ]);
+    }
+});
+
 // Permitir CORS para AJAX
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json; charset=utf-8');
+
+// Detectar si cURL está disponible
+$useCurl = function_exists('curl_init');
 
 // Servicios de traducción gratuitos (en orden de preferencia)
 $TRANSLATION_SERVICES = [
@@ -69,53 +97,111 @@ if ($source === $target) {
 }
 
 // Función para traducir con LibreTranslate
-function translateLibreTranslate($url, $text, $source, $target) {
-    $data = [
-        'q' => $text,
-        'source' => $source,
-        'target' => $target,
-        'format' => 'text'
-    ];
-    
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 8);
-    
-    $result = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    
-    if ($result && $httpCode === 200) {
-        $response = json_decode($result, true);
-        if (isset($response['translatedText'])) {
-            return $response['translatedText'];
+function translateLibreTranslate($url, $text, $source, $target, $useCurl = true) {
+    try {
+        $data = json_encode([
+            'q' => $text,
+            'source' => $source,
+            'target' => $target,
+            'format' => 'text'
+        ]);
+        
+        if ($useCurl) {
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Para evitar problemas con SSL
+            
+            $result = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+        } else {
+            // Usar file_get_contents como alternativa
+            $options = [
+                'http' => [
+                    'method' => 'POST',
+                    'header' => 'Content-Type: application/json',
+                    'content' => $data,
+                    'timeout' => 5,
+                    'ignore_errors' => true
+                ],
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false
+                ]
+            ];
+            $context = stream_context_create($options);
+            $result = @file_get_contents($url, false, $context);
+            $httpCode = 200; // Asumimos 200 si no hay error
+            if ($result === false) {
+                return false;
+            }
         }
+        
+        if ($result && $httpCode === 200) {
+            $response = json_decode($result, true);
+            if (isset($response['translatedText'])) {
+                return $response['translatedText'];
+            }
+        }
+    } catch (Exception $e) {
+        // Silenciar errores y continuar con el siguiente servicio
     }
     
     return false;
 }
 
 // Función para traducir con MyMemory
-function translateMyMemory($url, $text, $source, $target) {
-    $langpair = ($source === 'auto' ? 'es' : $source) . '|' . $target;
-    $query = $url . '?q=' . urlencode($text) . '&langpair=' . urlencode($langpair);
-    
-    $ch = curl_init($query);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 8);
-    
-    $result = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    
-    if ($result && $httpCode === 200) {
-        $response = json_decode($result, true);
-        if (isset($response['responseData']['translatedText'])) {
-            return $response['responseData']['translatedText'];
+function translateMyMemory($url, $text, $source, $target, $useCurl = true) {
+    try {
+        $langpair = ($source === 'auto' ? 'es' : $source) . '|' . $target;
+        $query = $url . '?q=' . urlencode($text) . '&langpair=' . urlencode($langpair);
+        
+        if ($useCurl) {
+            $ch = curl_init($query);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            
+            $result = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+        } else {
+            // Usar file_get_contents como alternativa
+            $options = [
+                'http' => [
+                    'method' => 'GET',
+                    'timeout' => 5,
+                    'ignore_errors' => true
+                ],
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false
+                ]
+            ];
+            $context = stream_context_create($options);
+            $result = @file_get_contents($query, false, $context);
+            $httpCode = 200;
+            if ($result === false) {
+                return false;
+            }
         }
+        
+        if ($result && $httpCode === 200) {
+            $response = json_decode($result, true);
+            
+            // Verificar responseStatus de MyMemory
+            if (isset($response['responseStatus']) && $response['responseStatus'] === 200) {
+                if (isset($response['responseData']['translatedText'])) {
+                    return $response['responseData']['translatedText'];
+                }
+            }
+        }
+    } catch (Exception $e) {
+        // Silenciar errores y continuar con el siguiente servicio
     }
     
     return false;
@@ -127,9 +213,9 @@ $usedService = null;
 
 foreach ($TRANSLATION_SERVICES as $service) {
     if ($service['type'] === 'libretranslate') {
-        $translatedText = translateLibreTranslate($service['url'], $text, $source, $target);
+        $translatedText = translateLibreTranslate($service['url'], $text, $source, $target, $useCurl);
     } elseif ($service['type'] === 'mymemory') {
-        $translatedText = translateMyMemory($service['url'], $text, $source, $target);
+        $translatedText = translateMyMemory($service['url'], $text, $source, $target, $useCurl);
     }
     
     if ($translatedText) {
@@ -143,10 +229,11 @@ if ($translatedText) {
     echo json_encode([
         'translatedText' => $translatedText,
         'detectedLanguage' => ['language' => $source],
-        'service' => $usedService
+        'service' => $usedService,
+        'method' => $useCurl ? 'cURL' : 'file_get_contents'
     ]);
 } else {
-    // Si todos los servicios fallan, devolver el texto original
+    // Si todos los servicios fallan, devolver el texto original pero marcar error
     echo json_encode([
         'translatedText' => $text,
         'error' => 'All translation services unavailable',

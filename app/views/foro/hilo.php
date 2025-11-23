@@ -37,7 +37,7 @@ require __DIR__ . '/../layout/header.php';
 <div class="xp-window" style="max-width: 900px; margin: 20px auto;">
     <div class="xp-titlebar">
         <div class="xp-titlebar-text">
-            💬 <?php echo htmlspecialchars($hilo['titulo']); ?>
+            💬 <span data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($hilo['titulo']); ?>"><?php echo htmlspecialchars($hilo['titulo']); ?></span>
         </div>
     </div>
     <div class="xp-content">
@@ -49,11 +49,11 @@ require __DIR__ . '/../layout/header.php';
                     👤 <?php echo htmlspecialchars($hilo['autor']); ?>
                 </a>
                 <small style="margin-left: 10px; color: #666;">
-                    📅 <?php echo date('d/m/Y H:i', strtotime($hilo['fecha_creacion'])); ?>
+                    📅 <?php echo Lang::formatDate($hilo['fecha_creacion'], true); ?>
                 </small>
             </div>
         </div>
-            <p style="margin: 10px 0;"><?php echo nl2br(htmlspecialchars($hilo['descripcion'])); ?></p>
+            <p style="margin: 10px 0;" data-translatable="description" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($hilo['descripcion']); ?>"><?php echo nl2br(htmlspecialchars($hilo['descripcion'])); ?></p>
             
             <?php 
             // Mostrar galería de archivos
@@ -92,24 +92,24 @@ require __DIR__ . '/../layout/header.php';
             <?php endif; ?>
         </div>
         
-        <h3 style="margin: 20px 0 10px 0;">💬 Comentarios</h3>
+        <h3 style="margin: 20px 0 10px 0;">💬 <?php echo __('forum.replies'); ?></h3>
         
         <!-- Formulario principal de comentario -->
         <?php if (isset($_SESSION['user_id'])): ?>
             <div class="xp-window" style="margin:15px 0;">
-                <div class="xp-titlebar"><span>✍️ Añadir Comentario</span></div>
+                <div class="xp-titlebar"><span>✍️ <?php echo __('forum.add_reply'); ?></span></div>
                 <div class="xp-content">
                     <form method="post" action="<?php echo BASE_URL; ?>/foro/comentar">
-                        <textarea name="contenido" class="xp-textarea" rows="4" required placeholder="Escribe tu comentario..."></textarea>
+                        <textarea name="contenido" class="xp-textarea" rows="4" required placeholder="<?php echo __('forum.reply_placeholder'); ?>"></textarea>
                         <input type="hidden" name="hilo_id" value="<?php echo $hilo['id']; ?>">
                         <input type="hidden" name="parent_id" value="">
-                        <button type="submit" class="xp-button" style="margin-top: 5px;">💬 Comentar</button>
+                        <button type="submit" class="xp-button" style="margin-top: 5px;">💬 <?php echo __('forum.reply'); ?></button>
                     </form>
                 </div>
             </div>
         <?php else: ?>
             <p style="padding: 10px; background: #ffffcc; border: 1px solid #999;">
-                <a href="<?php echo BASE_URL; ?>/login">Inicia sesión</a> para comentar
+                <a href="<?php echo BASE_URL; ?>/login"><?php echo __('user.login'); ?></a>
             </p>
         <?php endif; ?>
         
@@ -131,16 +131,16 @@ require __DIR__ . '/../layout/header.php';
                                     👤 <?php echo htmlspecialchars($comentario['autor']); ?>
                                 </a>
                                 <small style="margin-left: 10px;">
-                                    📅 <?php echo date('d/m/Y H:i', strtotime($comentario['fecha_publicacion'])); ?>
+                                    📅 <?php echo Lang::formatDate($comentario['fecha_publicacion'], true); ?>
                                 </small>
                             </span>
                         </div>
                         <div class="xp-content" style="padding: 8px;">
-                            <p style="margin: 0 0 8px 0; line-height: 1.4;"><?php echo nl2br(htmlspecialchars($comentario['contenido'])); ?></p>
+                            <p style="margin: 0 0 8px 0; line-height: 1.4;" data-translatable="comment" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($comentario['contenido']); ?>"><?php echo nl2br(htmlspecialchars($comentario['contenido'])); ?></p>
                             
                             <?php if ($isLoggedIn): ?>
                                 <button class="xp-button" style="margin: 0; padding: 3px 8px; font-size: 11px;" onclick="toggleReply('<?php echo $replyId; ?>')">
-                                    ↩️ Responder
+                                    ↩️ <?php echo __('forum.reply'); ?>
                                 </button>
                             <?php endif; ?>
                             
@@ -152,8 +152,8 @@ require __DIR__ . '/../layout/header.php';
                                         <input type="hidden" name="hilo_id" value="<?php echo $hilo_id; ?>">
                                         <input type="hidden" name="parent_id" value="<?php echo $comentario['id']; ?>">
                                         <div style="margin-top: 5px;">
-                                            <button type="submit" class="xp-button">💬 Responder</button>
-                                            <button type="button" class="xp-button" onclick="toggleReply('<?php echo $replyId; ?>')">Cancelar</button>
+                                            <button type="submit" class="xp-button">💬 <?php echo __('forum.reply'); ?></button>
+                                            <button type="button" class="xp-button" onclick="toggleReply('<?php echo $replyId; ?>')"><?php echo __('btn.cancel'); ?></button>
                                         </div>
                                     </form>
                                 </div>
@@ -174,7 +174,7 @@ require __DIR__ . '/../layout/header.php';
             
             <?php if (empty($comentarios_tree)): ?>
                 <p style="padding: 15px; text-align: center; background: #f0f0f0; border: 1px solid #999;">
-                    No hay comentarios aún. ¡Sé el primero en comentar!
+                    <?php echo __('forum.no_replies'); ?> <?php echo __('forum.be_first_reply'); ?>
                 </p>
             <?php else: ?>
                 <?php foreach ($comentarios_tree as $comentario): ?>

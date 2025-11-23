@@ -42,7 +42,7 @@
                             <a href="<?php echo BASE_URL; ?>/proyectos/<?php echo $proyecto['id']; ?>" 
                                style="color: #0066cc; text-decoration: none;"
                                onclick="event.stopPropagation();">
-                                <span data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars($proyecto['titulo']); ?>">
+                                <span data-translatable="title" data-original-lang="es" data-original-text="<?php echo htmlspecialchars(trim($proyecto['titulo'])); ?>">
                                     <?php echo htmlspecialchars($proyecto['titulo']); ?>
                                 </span>
                             </a>
@@ -63,23 +63,21 @@
                             </span>
                         </h3>
                         
+                        
+                        <?php
+                        // Pre-calcular la descripción para evitar código PHP dentro de atributos HTML
+                        $descripcion = strip_tags($proyecto['descripcion']);
+                        $descLimpia = str_replace(["\r", "\n"], " ", $descripcion);
+                        $descParaMostrar = (strlen($descripcion) > 200) ? substr($descripcion, 0, 200) . '...' : $descripcion;
+                        $descParaAtributo = (strlen($descLimpia) > 200) ? substr($descLimpia, 0, 200) . '...' : $descLimpia;
+                        ?>
+                        
                         <!-- Descripción (traducible) -->
-                        <p style="margin: 5px 0;" data-translatable="description" data-original-lang="es" data-original-text="<?php 
-                            $descripcion = strip_tags($proyecto['descripcion']);
-                            if (strlen($descripcion) > 200) {
-                                echo htmlspecialchars(substr($descripcion, 0, 200)) . '...';
-                            } else {
-                                echo htmlspecialchars($descripcion);
-                            }
-                        ?>">
-                            <?php 
-                            $descripcion = strip_tags($proyecto['descripcion']);
-                            if (strlen($descripcion) > 200) {
-                                echo htmlspecialchars(substr($descripcion, 0, 200)) . '...';
-                            } else {
-                                echo htmlspecialchars($descripcion);
-                            }
-                            ?>
+                        <p style="margin: 5px 0;" 
+                           data-translatable="description" 
+                           data-original-lang="es" 
+                           data-original-text="<?php echo htmlspecialchars($descParaAtributo); ?>">
+                            <?php echo htmlspecialchars($descParaMostrar); ?>
                         </p>
                         
                         <!-- Metadatos -->

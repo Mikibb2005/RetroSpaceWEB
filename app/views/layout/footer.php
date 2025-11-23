@@ -107,6 +107,38 @@
                 
                 bar.appendChild(controls);
             });
+            
+            // Menú móvil hamburguesa
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                    const isOpen = mainNav.classList.contains('active');
+                    mobileMenuToggle.textContent = isOpen ? '✕' : '☰';
+                    mobileMenuToggle.setAttribute('aria-expanded', isOpen);
+                });
+                
+                // Cerrar menú al hacer clic en un enlace
+                const navLinks = mainNav.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.textContent = '☰';
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    });
+                });
+                
+                // Cerrar al hacer clic fuera
+                document.addEventListener('click', function(e) {
+                    if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.textContent = '☰';
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
         });
     </script>
 </body>

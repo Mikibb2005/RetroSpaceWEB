@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Test de Traducción</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-item {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e0ffe0;
+            border-left: 4px solid #00aa00;
+        }
+        .error {
+            background: #ffe0e0;
+            border-left: 4px solid #aa0000;
+        }
+        button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #0052a3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test de Sistema de Traducción</h1>
+    
+    <div class="test-item">
+        <h3>Test 1: Probar API de traducción directamente</h3>
+        <input type="text" id="textToTranslate" value="Este proyecto está hecho para hacer pruebas" style="width: 100%; padding: 5px;">
+        <button onclick="testAPI()">Traducir a Inglés</button>
+        <div id="result1"></div>
+    </div>
+
+    <div class="test-item">
+        <h3>Console Log</h3>
+        <div id="console" style="background: #222; color: #0f0; padding: 10px; font-family: monospace; font-size: 12px; max-height: 300px; overflow-y: auto;"></div>
+    </div>
+
+    <script>
+        // Override console.log to show in page
+        const originalLog = console.log;
+        const consoleDiv = document.getElementById('console');
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            consoleDiv.innerHTML += args.join(' ') + '<br>';
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        };
+
+        // Test API directamente
+        async function testAPI() {
+            const text = document.getElementById('textToTranslate').value;
+            const result = document.getElementById('result1');
+            
+            console.log('🧪 Iniciando test de API...');
+            console.log('Texto a traducir:', text);
+            
+            result.innerHTML = '<div class="result">⏳ Traduciendo...</div>';
+            
+            try {
+                console.log('📡 Enviando petición a /api/translate.php...');
+                const response = await fetch('/api/translate.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        target: 'en',
+                        source: 'es'
+                    })
+                });
+
+                console.log('📥 Respuesta HTTP recibida. Status:', response.status);
+                const data = await response.json();
+                console.log('📦 Datos recibidos:', JSON.stringify(data, null, 2));
+                
+                if (data.error) {
+                    console.log('❌ Error en la traducción:', data.error);
+                    result.innerHTML = `<div class="result error">❌ Error: ${data.error}</div>`;
+                } else {
+                    console.log('✅ Traducción exitosa!');
+                    result.innerHTML = `
+                        <div class="result">
+                            ✅ Traducción exitosa<br>
+                            <strong>Original:</strong> ${text}<br>
+                            <strong>Traducido:</strong> ${data.translatedText}<br>
+                            <strong>Servicio usado:</strong> ${data.service || 'Desconocido'}<br>
+                            <strong>¿Son iguales?</strong> ${text === data.translatedText ? '⚠️ SÍ (posible fallo)' : '✅ NO (OK)'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.log('❌ Error de red:', error.message);
+                result.innerHTML = `<div class="result error">❌ Error de red: ${error.message}</div>`;
+            }
+        }
+
+        // Auto-ejecutar test al cargar
+        window.addEventListener('load', () => {
+            console.log('🚀 Página de test cargada');
+            console.log('Para ver los logs, abre también la consola del navegador (F12)');
+        });
+    </script>
+</body>
+</html>

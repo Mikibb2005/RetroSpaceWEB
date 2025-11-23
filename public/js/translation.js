@@ -8,11 +8,14 @@ const TranslationSystem = {
     defaultLang: 'es',
     cache: {},
     cacheExpiry: 24 * 60 * 60 * 1000, // 1 día en milisegundos
+    cacheVersion: '1.0', // Incrementar para invalidar caché antiguo
 
     /**
      * Inicializar el sistema de traducción
      */
     init() {
+        console.log('🚀 Inicializando TranslationSystem...');
+
         // Cargar idioma de localStorage o detectar del navegador
         const savedLang = localStorage.getItem('preferredLanguage');
         if (savedLang) {
@@ -21,6 +24,8 @@ const TranslationSystem = {
             this.currentLang = this.detectBrowserLanguage();
             localStorage.setItem('preferredLanguage', this.currentLang);
         }
+
+        console.log(`ℹ️ Idioma actual: ${this.currentLang}`);
 
         // Cargar caché del localStorage
         this.loadCache();
@@ -31,6 +36,8 @@ const TranslationSystem = {
         // Si no es español, traducir la página
         if (this.currentLang !== this.defaultLang) {
             this.translatePage();
+        } else {
+            console.log('ℹ️ Idioma es default (es), no se requiere traducción.');
         }
     },
 
@@ -63,24 +70,33 @@ const TranslationSystem = {
      * Traducir toda la página
      */
     async translatePage() {
-        // Mos un indicador de carga
+        console.log('🔄 Iniciando traducción de página...');
+
+        // Mostrar un indicador de carga
         this.showLoadingIndicator();
 
-        // Obtener todos los elementos con data-translate
+        // Obtener todos los elementos con data-translate (estáticos)
         const elements = document.querySelectorAll('[data-translate]');
 
+        // Traducir elementos estáticos
         for (const element of elements) {
             await this.translateElement(element);
         }
 
-        // Traducir textos dinámicos (proyectos, posts, etc)
-        await this.translateDynamicContent();
-
-        this.hideLoadingIndicator();
+        // Traducir textos dinámicos (proyectos, posts, etc) en paralelo
+        // No usamos await aquí para que no bloquee si tarda mucho, 
+        // pero idealmente deberían ir cargando progresivamente.
+        this.translateDynamicContent().then(() => {
+            this.hideLoadingIndicator();
+            console.log('✅ Traducción dinámica completada.');
+        }).catch(err => {
+            console.error('❌ Error en traducción dinámica:', err);
+            this.hideLoadingIndicator();
+        });
     },
 
     /**
-     * Traducir un elemento específico
+     * Traducir un elemento específico (estático)
      */
     async translateElement(element) {
         const originalText = element.getAttribute('data-original') || element.textContent.trim();
@@ -99,6 +115,8 @@ const TranslationSystem = {
 
         // Traducir
         const translation = await this.translate(originalText, this.currentLang);
+
+        // Solo guardar si hubo traducción real (diferente al original)
         if (translation && translation !== originalText) {
             element.textContent = translation;
 
@@ -115,23 +133,19 @@ const TranslationSystem = {
      * Traducir contenido dinámico (títulos, descripciones, etc)
      */
     async translateDynamicContent() {
-        // Traducir títulos de proyectos
-        const projectTitles = document.querySelectorAll('[data-translatable="title"]');
-        for (const title of projectTitles) {
-            await this.translateDynamicElement(title);
+        console.log('🌐 Iniciando traducción de contenido dinámico...');
+
+        // Obtener todos los elementos traducibles
+        const elements = document.querySelectorAll('[data-translatable]');
+        console.log(`🌐 Encontrados ${elements.length} elementos dinámicos para traducir.`);
+
+        const promises = [];
+        for (const element of elements) {
+            // Agregamos un pequeño delay aleatorio para no saturar el navegador/API si son muchos
+            promises.push(this.translateDynamicElement(element));
         }
 
-        // Traducir descripciones
-        const descriptions = document.querySelectorAll('[data-translatable="description"]');
-        for (const desc of descriptions) {
-            await this.translateDynamicElement(desc);
-        }
-
-        // Traducir categorías
-        const categories = document.querySelectorAll('[data-translatable="category"]');
-        for (const cat of categories) {
-            await this.translateDynamicElement(cat);
-        }
+        await Promise.all(promises);
     },
 
     /**
@@ -141,7 +155,7 @@ const TranslationSystem = {
         const originalText = element.getAttribute('data-original-text') || element.textContent.trim();
         const originalLang = element.getAttribute('data-original-lang') || 'es';
 
-        // Guardar original
+        // Guardar original si no existe
         if (!element.getAttribute('data-original-text')) {
             element.setAttribute('data-original-text', originalText);
             element.setAttribute('data-original-lang', originalLang);
@@ -157,14 +171,19 @@ const TranslationSystem = {
         // Verificar caché
         const cacheKey = this.getCacheKey(originalText, this.currentLang);
         if (this.cache[cacheKey]) {
+            console.log(`✅ Usando caché para: "${originalText.substring(0, 20)}..."`);
             element.textContent = this.cache[cacheKey].translation;
             this.addTranslationIndicator(element, originalLang, originalText);
             return;
         }
 
         // Traducir
+        console.log(`🌍 Traduciendo: "${originalText.substring(0, 20)}..." a ${this.currentLang}`);
         const translation = await this.translate(originalText, this.currentLang, originalLang);
+
+        // Solo guardar si hubo traducción real
         if (translation && translation !== originalText) {
+            console.log(`✨ Traducido: "${translation.substring(0, 20)}..."`);
             element.textContent = translation;
             this.addTranslationIndicator(element, originalLang, originalText);
 
@@ -174,6 +193,9 @@ const TranslationSystem = {
                 timestamp: Date.now()
             };
             this.saveCache();
+        } else {
+            console.warn(`⚠️ Fallo o texto idéntico: "${originalText.substring(0, 20)}..."`);
+            // NO guardamos en caché para permitir reintentos
         }
     },
 
@@ -235,10 +257,11 @@ const TranslationSystem = {
         indicator.className = 'translation-indicator';
         indicator.style.cssText = 'display: block; color: #666; font-size: 11px; margin-top: 2px;';
         indicator.innerHTML = `
-            <em>Traducido automáticamente de ${langNames[sourceLang]}</em>
+            <em>Traducido automáticamente de ${langNames[sourceLang] || sourceLang}</em>
             <a href="#" style="margin-left: 8px; color: #0066cc;" onclick="TranslationSystem.showOriginal(this); return false;">Mostrar original</a>
         `;
-        indicator.setAttribute('data-original-text', originalText);
+        // Guardamos el texto original en el indicador también por si acaso
+        indicator.setAttribute('data-original-text-backup', originalText);
 
         element.parentNode.insertBefore(indicator, element.nextSibling);
     },
@@ -300,6 +323,17 @@ const TranslationSystem = {
     loadCache() {
         try {
             const cached = localStorage.getItem('translationCache');
+            const version = localStorage.getItem('translationCacheVersion');
+
+            // Si la versión no coincide, limpiar caché
+            if (version !== this.cacheVersion) {
+                console.log('🧹 Limpiando caché antiguo por cambio de versión.');
+                localStorage.removeItem('translationCache');
+                localStorage.setItem('translationCacheVersion', this.cacheVersion);
+                this.cache = {};
+                return;
+            }
+
             if (cached) {
                 const data = JSON.parse(cached);
                 // Limpiar entradas expiradas
@@ -349,10 +383,12 @@ const TranslationSystem = {
      * Mostrar indicador de carga
      */
     showLoadingIndicator() {
+        if (document.getElementById('translation-loading')) return;
+
         const indicator = document.createElement('div');
         indicator.id = 'translation-loading';
-        indicator.style.cssText = 'position: fixed; top: 60px; right: 20px; background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 4px; z-index: 10000; font-size: 14px;';
-        indicator.textContent = '🌐 Traduciendo...';
+        indicator.style.cssText = 'position: fixed; top: 60px; right: 20px; background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 4px; z-index: 10000; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);';
+        indicator.textContent = '🌐 Traduciendo contenido...';
         document.body.appendChild(indicator);
     },
 
@@ -368,6 +404,10 @@ const TranslationSystem = {
 };
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        TranslationSystem.init();
+    });
+} else {
     TranslationSystem.init();
-});
+}
