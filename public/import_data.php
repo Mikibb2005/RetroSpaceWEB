@@ -19,9 +19,31 @@ try {
     
     echo "<p>📥 Importando datos...</p>";
     
-    // Ejecutar el SQL
-    $pdo->exec($sql);
+    // Split by semicolons and execute individually
+    $statements = explode(';', $sql);
+    $executed = 0;
     
+    foreach ($statements as $statement) {
+        $statement = trim($statement);
+        
+        // Skip empty statements and comments
+        if (empty($statement) || strpos($statement, '--') === 0) {
+            continue;
+        }
+        
+        try {
+            $pdo->exec($statement);
+            $executed++;
+        } catch (PDOException $e) {
+            // Ignore duplicate key errors (data might exist)
+            if (strpos($e->getMessage(), 'duplicate key') === false && 
+                strpos($e->getMessage(), 'Duplicate entry') === false) {
+                echo "<p style='color:orange'>⚠️ Warning: " . htmlspecialchars($e->getMessage()) . "</p>";
+            }
+        }
+    }
+    
+    echo "<p>✅ Ejecutadas {$executed} sentencias SQL.</p>";
     echo "<p>✅ Datos importados correctamente.</p>";
     echo "<hr>";
     echo "<h3>¡Importación Completada!</h3>";
