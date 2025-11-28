@@ -19,6 +19,8 @@ try {
     
     // Drop tables if they exist to ensure clean install
     $dropSql = "
+        DROP TABLE IF EXISTS seguidores CASCADE;
+        DROP TABLE IF EXISTS mensajes_contacto CASCADE;
         DROP TABLE IF EXISTS proyecto_comentarios CASCADE;
         DROP TABLE IF EXISTS proyecto_actualizaciones CASCADE;
         DROP TABLE IF EXISTS foro_comentarios CASCADE;

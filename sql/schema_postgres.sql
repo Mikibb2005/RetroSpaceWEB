@@ -6,6 +6,8 @@ CREATE TABLE usuarios (
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     rol VARCHAR(20) DEFAULT 'user' CHECK (rol IN ('admin', 'user')),
+    biografia TEXT,
+    avatar VARCHAR(255),
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     esta_bloqueado BOOLEAN DEFAULT FALSE
 );
@@ -16,6 +18,7 @@ CREATE TABLE posts_diario (
     contenido TEXT NOT NULL,
     imagen VARCHAR(255),
     codigo_embed TEXT,
+    archivos TEXT DEFAULT NULL,
     fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     autor_id INT,
     FOREIGN KEY (autor_id) REFERENCES usuarios (id)
@@ -37,6 +40,7 @@ CREATE TABLE proyectos (
     link2 VARCHAR(255),
     video_url VARCHAR(255),
     imagen VARCHAR(255),
+    archivos TEXT DEFAULT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     autor_id INT,
@@ -68,6 +72,7 @@ CREATE TABLE foro_hilos (
     titulo VARCHAR(255) NOT NULL,
     descripcion TEXT,
     categoria VARCHAR(50),
+    archivos TEXT DEFAULT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     autor_id INT,
     sticky BOOLEAN DEFAULT FALSE,
@@ -91,6 +96,29 @@ CREATE TABLE estadisticas (
     tipo VARCHAR(50),
     valor INT,
     fecha DATE
+);
+
+CREATE TABLE mensajes_contacto (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    asunto VARCHAR(200) NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    leido BOOLEAN DEFAULT FALSE,
+    respondido BOOLEAN DEFAULT FALSE,
+    ip_address VARCHAR(45),
+    user_agent TEXT
+);
+
+CREATE TABLE seguidores (
+    id SERIAL PRIMARY KEY,
+    seguidor_id INT NOT NULL,
+    seguido_id INT NOT NULL,
+    fecha_seguimiento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (seguidor_id) REFERENCES usuarios (id),
+    FOREIGN KEY (seguido_id) REFERENCES usuarios (id),
+    UNIQUE (seguidor_id, seguido_id)
 );
 
 -- Initial Data
