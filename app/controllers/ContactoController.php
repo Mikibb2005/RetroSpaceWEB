@@ -12,7 +12,12 @@ class ContactoController {
     
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
-        $this->user = isset($_SESSION['user_id']) ? User::getById($this->db, $_SESSION['user_id']) : null;
+        if (isset($_SESSION['user_id'])) {
+            $userModel = new User();
+            $this->user = $userModel->getUserById($_SESSION['user_id']);
+        } else {
+            $this->user = null;
+        }
     }
     
     /**
