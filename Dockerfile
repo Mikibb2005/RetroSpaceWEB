@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libzip-dev \
         libonig-dev \
         libicu-dev \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring intl \
+        libpq-dev \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip mbstring intl \
     && rm -rf /var/lib/apt/lists/*
 
 # Habilitar mod_rewrite de Apache
