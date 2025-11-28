@@ -17,6 +17,20 @@ try {
     
     $sql = file_get_contents($sqlFile);
     
+    // Drop tables if they exist to ensure clean install
+    $dropSql = "
+        DROP TABLE IF EXISTS proyecto_comentarios CASCADE;
+        DROP TABLE IF EXISTS proyecto_actualizaciones CASCADE;
+        DROP TABLE IF EXISTS foro_comentarios CASCADE;
+        DROP TABLE IF EXISTS foro_hilos CASCADE;
+        DROP TABLE IF EXISTS proyectos CASCADE;
+        DROP TABLE IF EXISTS posts_diario CASCADE;
+        DROP TABLE IF EXISTS usuarios CASCADE;
+        DROP TABLE IF EXISTS estadisticas CASCADE;
+    ";
+    $pdo->exec($dropSql);
+    echo "<p>🗑️ Tablas antiguas eliminadas.</p>";
+    
     // Ejecutar múltiples consultas
     $pdo->exec($sql);
     
