@@ -10,9 +10,9 @@ try {
     
     echo "<p>✅ Conexión exitosa a la base de datos.</p>";
     
-    $sqlFile = __DIR__ . '/../sql/schema_postgres.sql';
+    $sqlFile = __DIR__ . '/../sql/init_postgres.sql';
     if (!file_exists($sqlFile)) {
-        die("❌ Error: No se encuentra el archivo sql/schema_postgres.sql");
+        die("❌ Error: No se encuentra el archivo sql/init_postgres.sql");
     }
     
     $sql = file_get_contents($sqlFile);
