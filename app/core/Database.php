@@ -4,10 +4,19 @@ class Database {
     private $pdo;
 
     private function __construct() {
-        $host = getenv('DB_HOST') ?: '127.0.0.1';
-        $dbname = getenv('DB_NAME') ?: 'mikisito_db';
-        $user = getenv('DB_USER') ?: 'miki';
-        $pass = getenv('DB_PASS') ?: 'password';
+        // Helper to get env var from multiple sources
+        $getEnv = function($key, $default) {
+            $val = getenv($key);
+            if ($val !== false) return $val;
+            if (isset($_ENV[$key])) return $_ENV[$key];
+            if (isset($_SERVER[$key])) return $_SERVER[$key];
+            return $default;
+        };
+
+        $host = $getEnv('DB_HOST', '127.0.0.1');
+        $dbname = $getEnv('DB_NAME', 'mikisito_db');
+        $user = $getEnv('DB_USER', 'miki');
+        $pass = $getEnv('DB_PASS', 'password');
 
         try {
             $this->pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
