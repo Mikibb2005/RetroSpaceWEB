@@ -38,8 +38,29 @@ CREATE TABLE proyectos (
     video_url VARCHAR(255),
     imagen VARCHAR(255),
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     autor_id INT,
     FOREIGN KEY (autor_id) REFERENCES usuarios (id)
+);
+
+CREATE TABLE proyecto_actualizaciones (
+    id SERIAL PRIMARY KEY,
+    proyecto_id INT NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    contenido TEXT NOT NULL,
+    archivos TEXT DEFAULT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (proyecto_id) REFERENCES proyectos (id) ON DELETE CASCADE
+);
+
+CREATE TABLE proyecto_comentarios (
+    id SERIAL PRIMARY KEY,
+    actualizacion_id INT NOT NULL,
+    autor_id INT NOT NULL,
+    contenido TEXT NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (actualizacion_id) REFERENCES proyecto_actualizaciones (id) ON DELETE CASCADE,
+    FOREIGN KEY (autor_id) REFERENCES usuarios (id) ON DELETE CASCADE
 );
 
 CREATE TABLE foro_hilos (
