@@ -38,16 +38,18 @@
    ============================================ */
 @media (max-width: 768px) {
     body {
-        font-size: 14px;
+        font-size: 16px;
+        /* Aumentado de 14px para mejor lectura */
         padding: 0;
         margin: 0;
+        line-height: 1.6;
     }
 
     /* Contenedores */
     .container {
         width: 100% !important;
         max-width: 100% !important;
-        padding: 10px !important;
+        padding: 15px !important;
         margin: 0 !important;
     }
 
@@ -60,7 +62,7 @@
     .win98-window {
         width: 100% !important;
         max-width: 100% !important;
-        margin: 10px 0 !important;
+        margin: 15px 0 !important;
         border-radius: 0 !important;
     }
 
@@ -71,7 +73,7 @@
     .win10-window-content,
     .vista-window-content,
     .win98-window-content {
-        padding: 15px 10px !important;
+        padding: 20px 15px !important;
     }
 
     /* Títulos de ventanas */
@@ -172,21 +174,28 @@
     /* Links de navegación en móvil */
     .nav-grid .nav-item {
         width: 100%;
-        padding: 16px 20px !important;
+        padding: 18px 25px !important;
+        /* Área táctil más grande */
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         text-align: left;
-        font-size: 16px;
-        transition: background 0.2s ease;
+        font-size: 18px;
+        /* Texto más grande */
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
     }
 
     .nav-grid .nav-item:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.15);
+        padding-left: 30px !important;
+        /* Efecto de desplazamiento */
     }
 
     .nav-grid .nav-item.active {
         font-weight: bold;
-        background: rgba(255, 255, 255, 0.15);
-        border-left: 4px solid #0078d7;
+        background: rgba(255, 255, 255, 0.2);
+        border-left: 6px solid #0078d7;
+        padding-left: 30px !important;
     }
 
     /* Navbar principal genérico */
@@ -403,96 +412,116 @@
 @media (max-width: 768px) {
 
     /* Taskbar responsive */
-    .taskbar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 8px 10px !important;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 8px;
-        z-index: 900;
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Botón de inicio más pequeño */
-    .start-button {
-        padding: 6px 12px !important;
-        font-size: 12px !important;
-        flex-shrink: 0;
-    }
-
-    /* Contenedores de selectores */
-    .theme-selector-container,
-    .language-selector-container {
-        margin: 0 !important;
-        flex: 0 1 auto;
-    }
-
-    .theme-selector-container label,
-    .language-selector-container label {
-        display: inline-block !important;
-        font-size: 14px !important;
-        margin-right: 2px !important;
-    }
-
-    /* Selectores más compactos */
-    .theme-selector-container select,
-    .language-selector-container select,
-    .xp-select {
-        padding: 4px 6px !important;
-        font-size: 11px !important;
-        height: auto !important;
-        min-height: 32px;
-        max-width: 120px;
-    }
-
-    /* User menu en taskbar */
-    .user-menu {
-        margin-left: auto !important;
-        flex-shrink: 0;
-    }
-
-    .user-menu-btn {
-        padding: 6px 10px !important;
-        font-size: 11px !important;
-        white-space: nowrap;
-        min-height: 32px;
-    }
-
-    .user-menu-dropdown {
-        bottom: 100%;
-        top: auto;
-        right: 0;
-        left: auto;
-        min-width: 150px;
-        margin-bottom: 5px;
-    }
-
-    /* Footer genérico */
-    footer {
-        padding: 20px 10px !important;
-    }
-
-    .footer-content {
-        flex-direction: column !important;
-        text-align: center;
-        gap: 15px;
-    }
-
-    .theme-selector,
-    .language-selector {
-        width: 100%;
-        margin: 10px 0;
-    }
-
-    .theme-selector select,
-    .language-selector select {
-        width: 100%;
+    /* Layout General Mejorado */
+    body {
         font-size: 16px;
-        padding: 10px;
+        /* Mejor legibilidad */
+        line-height: 1.5;
+    }
+
+    /* Contenedores */
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 15px !important;
+        margin: 0 !important;
+    }
+
+    /* Ventanas XP/Windows */
+    .xp-window,
+    .win7-window,
+    .win8-window,
+    .win10-window,
+    .vista-window,
+    .win98-window {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 15px 0 !important;
+        border-radius: 0 !important;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Contenido de ventanas */
+    .xp-window-content,
+    .win7-window-content,
+    .win8-window-content,
+    .win10-window-content,
+    .vista-window-content,
+    .win98-window-content {
+        padding: 20px 15px !important;
+    }
+
+    /* Taskbar responsive - OCULTO EN MÓVIL (movido al menú lateral) */
+    .taskbar {
+        display: none !important;
+    }
+
+    /* Ajustes del menú móvil para los nuevos elementos */
+    .mobile-settings {
+        padding: 15px 20px;
+        background: rgba(0, 0, 0, 0.2);
+        margin-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-separator {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.15);
+        margin: 15px 0;
+    }
+
+    .mobile-user-info {
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        font-weight: bold;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+
+    .mobile-selector-group {
+        margin-bottom: 20px;
+    }
+
+    .mobile-selector-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .xp-select.full-width {
+        width: 100% !important;
+        box-sizing: border-box;
+        padding: 12px;
+        height: auto;
+        font-size: 16px;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #333;
+    }
+
+    /* Reloj Móvil Estilo Retro */
+    .mobile-clock {
+        background: #000;
+        color: #0f0;
+        font-family: 'Courier New', monospace;
+        text-align: center;
+        font-weight: bold;
+        padding: 15px;
+        border: 2px inset #666;
+        border-radius: 4px;
+        font-size: 24px;
+        text-shadow: 0 0 5px #0f0;
+        margin-top: 10px;
+        letter-spacing: 2px;
     }
 }
 

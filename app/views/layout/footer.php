@@ -69,23 +69,36 @@
     <script src="<?php echo BASE_URL; ?>/js/translation.js"></script>
     <script>
         // Lógica de Temas
-        const themeSelector = document.getElementById('theme-selector');
+        // Lógica de Temas
+        function syncSelectors(selectorId, value) {
+            const selector = document.getElementById(selectorId);
+            if (selector) selector.value = value;
+        }
+
         const currentTheme = localStorage.getItem('retro_theme') || 'xp';
-        themeSelector.value = currentTheme;
+        syncSelectors('theme-selector', currentTheme);
+        syncSelectors('mobile-theme-selector', currentTheme);
 
         function changeTheme(theme) {
             const link = document.getElementById('theme-style');
             link.href = '<?php echo BASE_URL; ?>/css/' + theme + '.css';
             localStorage.setItem('retro_theme', theme);
+            
+            // Sincronizar ambos selectores
+            syncSelectors('theme-selector', theme);
+            syncSelectors('mobile-theme-selector', theme);
         }
         
         // Lógica de Idiomas
-        const languageSelector = document.getElementById('language-selector');
         const currentLang = localStorage.getItem('preferredLanguage') || TranslationSystem.detectBrowserLanguage();
-        languageSelector.value = currentLang;
+        syncSelectors('language-selector', currentLang);
+        syncSelectors('mobile-language-selector', currentLang);
         
         function changeLanguage(lang) {
             TranslationSystem.changeLanguage(lang);
+            // Sincronizar ambos selectores
+            syncSelectors('language-selector', lang);
+            syncSelectors('mobile-language-selector', lang);
         }
 
         // Inyectar botones de ventana
