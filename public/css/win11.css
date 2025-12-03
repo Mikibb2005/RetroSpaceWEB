@@ -1,5 +1,6 @@
-/* Windows 11 Theme */
-@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+/* Windows 11 Modern Theme - Authentic Replica */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI+Variable:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap');
 
 * {
     margin: 0;
@@ -8,176 +9,280 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #f3f3f3;
-    /* Mica base */
-    background: url('https://images.unsplash.com/photo-1622542796254-5b9c46a3d2f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
-    background-size: cover;
+    font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Windows 11 Bloom wallpaper gradient */
+    background: linear-gradient(135deg,
+            #3b82f6 0%,
+            #8b5cf6 25%,
+            #ec4899 50%,
+            #f59e0b 75%,
+            #10b981 100%);
+    background-attachment: fixed;
     color: #000;
     font-size: 14px;
     min-height: 100vh;
+    position: relative;
+    font-weight: 400;
 }
 
-/* Barra de tareas Win11 (Centrada, flotante) */
+/* Mica-like effect overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Noise texture for authentic Mica feel */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDIiLz48L3N2Zz4=');
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Taskbar - Centered, floating, frosted glass */
 .taskbar {
     position: fixed;
-    bottom: 10px;
+    bottom: 8px;
     left: 50%;
     transform: translateX(-50%);
     height: 48px;
     width: auto;
-    min-width: 400px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    min-width: 600px;
+    max-width: 80%;
+    background: rgba(243, 243, 243, 0.7);
+    backdrop-filter: blur(60px) saturate(180%);
+    -webkit-backdrop-filter: blur(60px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 8px;
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(20px) saturate(120%);
+    padding: 0 8px;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.03),
+        0 8px 16px rgba(0, 0, 0, 0.14),
+        0 16px 48px rgba(0, 0, 0, 0.1);
 }
 
+/* Start Button - Windows 11 logo */
 .start-button {
     height: 40px;
     width: 40px;
     background: transparent;
     color: transparent;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 4px;
-    border-radius: 4px;
+    transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
 }
 
 .start-button:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.06);
 }
 
+.start-button:active {
+    background: rgba(0, 0, 0, 0.08);
+    transform: scale(0.96);
+}
+
+.start-button span {
+    display: none;
+}
+
+/* Windows 11 logo - gradient version */
 .start-button::after {
     content: '';
     width: 24px;
     height: 24px;
-    background: linear-gradient(to bottom right, #0078d4, #00bcf2);
-    mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h11v11H0V0zm13 0h11v11H13V0zM0 13h11v11H0V13zm13 0h11v11H13V13z"/></svg>') no-repeat center;
-    -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h11v11H0V0zm13 0h11v11H13V0zM0 13h11v11H0V13zm13 0h11v11H13V13z"/></svg>') no-repeat center;
-    background-color: #0078d4;
+    background: linear-gradient(135deg, #0067c0 0%, #00a4ef 100%);
+    clip-path: polygon(0 0, 46% 0, 46% 46%, 0 46%,
+            54% 0, 100% 0, 100% 46%, 54% 46%,
+            0 54%, 46% 54%, 46% 100%, 0 100%,
+            54% 54%, 100% 54%, 100% 100%, 54% 100%);
 }
 
-/* Ventana Win11 */
+/* Window - Mica material with rounded corners */
 .xp-window {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    background: rgba(249, 249, 249, 0.75);
+    backdrop-filter: blur(60px) saturate(150%);
+    -webkit-backdrop-filter: blur(60px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 12px 24px rgba(0, 0, 0, 0.12),
+        0 24px 48px rgba(0, 0, 0, 0.08);
     margin: 20px;
     overflow: hidden;
-    backdrop-filter: blur(20px);
+    position: relative;
+    z-index: 1;
 }
 
+/* Subtle inner shadow for depth */
+.xp-window::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+
+/* Title bar - Transparent, integrated */
 .xp-titlebar {
     background: transparent;
-    color: #000;
+    color: rgba(0, 0, 0, 0.9);
     padding: 0 16px;
     font-weight: 600;
+    font-size: 13px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .xp-titlebar-text {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-size: 13px;
 }
 
 .xp-content {
     padding: 24px;
-    background: rgba(255, 255, 255, 0.5);
+    background: transparent;
     min-height: 200px;
 }
 
-/* Header fijo */
+/* Header - Floating, frosted glass */
 .xp-header {
     position: fixed;
-    top: 10px;
+    top: 12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 95%;
-    max-width: 1200px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 8px;
+    width: calc(100% - 48px);
+    max-width: 1400px;
+    background: rgba(243, 243, 243, 0.7);
+    backdrop-filter: blur(60px) saturate(180%);
+    -webkit-backdrop-filter: blur(60px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
     z-index: 999;
-    padding: 0 10px;
+    padding: 0 16px;
     height: 56px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(20px);
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.03),
+        0 8px 16px rgba(0, 0, 0, 0.1),
+        0 16px 32px rgba(0, 0, 0, 0.06);
 }
 
-/* Navegación */
+/* Navigation - Pills style */
 .nav-grid {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     margin: 0 auto;
 }
 
 .nav-item {
     background: transparent;
-    padding: 0 16px;
+    padding: 0 20px;
     text-align: center;
     text-decoration: none;
-    color: #000;
+    color: rgba(0, 0, 0, 0.85);
     font-weight: 500;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     line-height: 36px;
     height: 36px;
-    border-radius: 4px;
-    margin-top: 0;
+    border-radius: 6px;
     font-size: 14px;
+    position: relative;
 }
 
 .nav-item:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.95);
+}
+
+.nav-item:active {
+    background: rgba(0, 0, 0, 0.08);
+    transform: scale(0.98);
 }
 
 .nav-item.active {
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.9);
+    color: rgba(0, 0, 0, 0.95);
     font-weight: 600;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 2px 4px rgba(0, 0, 0, 0.08),
+        0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Subtle glow on active */
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 103, 192, 0.3), transparent);
+    border-radius: 2px;
 }
 
 /* User Menu */
 .user-menu {
     position: relative;
-    margin-left: 0;
+    margin-left: auto;
 }
 
 .user-menu-btn {
     background: transparent;
     border: none;
-    padding: 0 12px;
-    font-family: 'Segoe UI', sans-serif;
-    color: #000;
+    padding: 0 16px;
+    font-family: 'Segoe UI Variable', 'Segoe UI', sans-serif;
+    color: rgba(0, 0, 0, 0.85);
     cursor: pointer;
-    font-size: 13px;
-    line-height: 40px;
-    height: 40px;
-    border-radius: 4px;
-    margin: 0 4px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 36px;
+    height: 36px;
+    border-radius: 6px;
+    transition: background 0.2s;
 }
 
 .user-menu-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.06);
 }
 
 .user-menu-dropdown {
@@ -185,31 +290,50 @@ body {
     position: absolute;
     bottom: 100%;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    min-width: 200px;
+    background: rgba(249, 249, 249, 0.85);
+    backdrop-filter: blur(60px) saturate(180%);
+    -webkit-backdrop-filter: blur(60px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    min-width: 280px;
     margin-bottom: 12px;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(20px);
-    padding: 4px;
+    border-radius: 12px;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 12px 24px rgba(0, 0, 0, 0.14),
+        0 24px 48px rgba(0, 0, 0, 0.1);
+    padding: 6px;
 }
 
 .user-menu:hover .user-menu-dropdown {
     display: block;
+    animation: slideUp 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-item {
     display: block;
     padding: 10px 16px;
     text-decoration: none;
-    color: #000;
+    color: rgba(0, 0, 0, 0.85);
     font-size: 14px;
-    border-radius: 4px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background 0.2s;
 }
 
 .dropdown-item:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.06);
 }
 
 .main-content {
@@ -235,102 +359,151 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .home-grid .xp-content {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    background: transparent;
 }
 
-.home-grid .xp-titlebar {
-    background: transparent;
-}
-
-/* Botones Win11 */
+/* Buttons - Accent with rounded corners */
 .xp-button {
     background: #0067c0;
     border: none;
-    border-radius: 4px;
-    padding: 8px 20px;
-    font-family: 'Segoe UI', sans-serif;
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-family: 'Segoe UI Variable', 'Segoe UI', sans-serif;
     cursor: pointer;
     margin: 4px;
     text-decoration: none;
     color: #fff;
     display: inline-block;
     text-align: center;
-    transition: all 0.2s;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 103, 192, 0.2);
 }
 
 .xp-button:hover {
     background: #005a9e;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 103, 192, 0.3);
+    transform: translateY(-1px);
 }
 
 .xp-button:active {
     background: #004578;
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 103, 192, 0.2);
 }
 
-/* Inputs */
+/* Inputs - Modern, clean */
 .xp-input,
 .xp-textarea,
 .xp-select {
-    border: 1px solid #d1d1d1;
-    border-bottom: 2px solid #d1d1d1;
-    padding: 8px 12px;
-    font-family: 'Segoe UI', sans-serif;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    padding: 10px 14px;
+    font-family: 'Segoe UI Variable', 'Segoe UI', sans-serif;
     width: 100%;
     margin: 4px 0;
-    background: #fff;
-    border-radius: 4px;
-    transition: all 0.2s;
+    font-size: 14px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.xp-input:hover {
-    background: #fbfbfb;
-    border-color: #c0c0c0;
+.xp-input:hover,
+.xp-textarea:hover,
+.xp-select:hover {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(0, 0, 0, 0.24);
 }
 
-.xp-input:focus {
+.xp-input:focus,
+.xp-textarea:focus,
+.xp-select:focus {
+    background-color: rgba(255, 255, 255, 0.95);
     border-color: #0067c0;
     border-bottom-color: #0067c0;
     outline: none;
-    background: #fff;
+    box-shadow: 0 0 0 1px #0067c0, 0 2px 4px rgba(0, 103, 192, 0.1);
 }
 
-/* Botones de ventana */
+.xp-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Lists */
+.xp-list {
+    list-style: none;
+}
+
+.xp-list-item {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    margin: 8px 0;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.xp-list-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Window Controls - Modern rounded buttons */
 .window-controls {
     display: flex;
-    gap: 4px;
-    margin-left: 10px;
+    gap: 6px;
+    margin-left: auto;
     margin-right: -8px;
     height: 100%;
     align-items: center;
 }
 
 .win-btn {
-    width: 46px;
+    width: 40px;
     height: 32px;
     background: transparent;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: default;
-    color: #000;
-    font-weight: normal;
-    transition: background 0.1s;
+    color: rgba(0, 0, 0, 0.75);
+    font-weight: 400;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .win-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.95);
+}
+
+.win-btn.min::before {
+    content: '─';
+    font-size: 16px;
+}
+
+.win-btn.max::before {
+    content: '□';
+    font-size: 13px;
+}
+
+.win-btn.close::before {
+    content: '✕';
+    font-size: 12px;
 }
 
 .win-btn.close:hover {
@@ -350,7 +523,12 @@ body {
     }
 
     .taskbar {
-        width: 95%;
+        width: calc(100% - 16px);
         min-width: auto;
+    }
+
+    .xp-header {
+        width: calc(100% - 24px);
+        border-radius: 8px;
     }
 }

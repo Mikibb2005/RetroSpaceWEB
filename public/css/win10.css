@@ -1,5 +1,5 @@
-/* Windows 10 Theme - Authentic Replica */
-@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap');
+/* Windows 10 Fluent Design Theme - Authentic Replica */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap');
 
 * {
     margin: 0;
@@ -8,9 +8,9 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    /* Fondo azul característico de Windows 10 con logo */
-    background: linear-gradient(135deg, #0078d7 0%, #00bcf2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Authentic Windows 10 Hero wallpaper gradient */
+    background: linear-gradient(135deg, #1e3a8a 0%, #0078d7 25%, #00bcf2 75%, #4cc2ff 100%);
     background-attachment: fixed;
     color: #000;
     font-size: 12px;
@@ -18,47 +18,54 @@ body {
     position: relative;
 }
 
-/* Logo de Windows en el fondo */
+/* Windows 10 Light rays effect */
 body::before {
     content: '';
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(45deg,
-            transparent 0%, transparent 45%,
-            rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.03) 55%,
-            transparent 55%, transparent 100%),
-        linear-gradient(-45deg,
-            transparent 0%, transparent 45%,
-            rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.03) 55%,
-            transparent 55%, transparent 100%);
-    background-position: center;
-    background-size: 200px 200px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
 }
 
-/* Barra de tareas Win10 (Negra con transparencia) */
+/* Subtle grid pattern */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .01) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .01) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Taskbar - Acrylic material effect */
 .taskbar {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     height: 40px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(30px) saturate(125%);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
     display: flex;
     align-items: center;
     padding: 0;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Botón de inicio - Logo de Windows */
+/* Start Button - Windows logo */
 .start-button {
     height: 40px;
     width: 48px;
@@ -66,54 +73,72 @@ body::before {
     color: transparent;
     border: none;
     cursor: pointer;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.1s;
+    transition: background 0.15s ease;
+    position: relative;
 }
 
 .start-button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
+.start-button:active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
 .start-button span {
     display: none;
 }
 
-/* Logo de Windows (4 cuadrados) */
+/* Windows 10 logo - 4 squares */
 .start-button::after {
     content: '';
     width: 20px;
     height: 20px;
     background:
-        linear-gradient(to right, white 0%, white 48%, transparent 48%, transparent 52%, white 52%, white 100%),
-        linear-gradient(to bottom, white 0%, white 48%, transparent 48%, transparent 52%, white 52%, white 100%);
+        /* Top-left square */
+        linear-gradient(to right,
+            white 0%, white 45%,
+            transparent 45%, transparent 55%,
+            white 55%, white 100%),
+        /* Horizontal divider */
+        linear-gradient(to bottom,
+            white 0%, white 45%,
+            transparent 45%, transparent 55%,
+            white 55%, white 100%);
     background-size: 100% 100%;
 }
 
-/* Ventana Win10 - Estilo auténtico */
+/* Window - Fluent Design with shadow and acrylic */
 .xp-window {
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 8px 16px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(40px) saturate(150%);
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 8px 16px rgba(0, 0, 0, 0.15),
+        0 16px 48px rgba(0, 0, 0, 0.1);
     margin: 20px;
     overflow: hidden;
     position: relative;
     z-index: 1;
 }
 
-/* Barra de título - Blanca con texto negro */
+/* Title bar - Clean white */
 .xp-titlebar {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
     color: #000;
-    padding: 0 10px;
+    padding: 0 12px;
     font-weight: 400;
+    font-size: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 32px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .xp-titlebar-text {
@@ -125,21 +150,22 @@ body::before {
 
 .xp-content {
     padding: 20px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.98);
     min-height: 200px;
 }
 
-/* Header fijo - Barra superior */
+/* Header - Frosted glass effect */
 .xp-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(30px) saturate(125%);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     z-index: 999;
-    padding: 0 10px;
+    padding: 0 12px;
     height: 48px;
     display: flex;
     justify-content: space-between;
@@ -147,7 +173,7 @@ body::before {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* Navegación */
+/* Navigation - Fluent style */
 .nav-grid {
     display: flex;
     gap: 0;
@@ -157,26 +183,49 @@ body::before {
 
 .nav-item {
     background: transparent;
-    padding: 0 16px;
+    padding: 0 20px;
     text-align: center;
     text-decoration: none;
     color: #000;
     font-weight: 400;
-    transition: all 0.1s;
+    transition: all 0.15s ease;
     line-height: 48px;
     height: 48px;
-    border-bottom: 2px solid transparent;
     font-size: 14px;
+    position: relative;
+    border-bottom: 2px solid transparent;
 }
 
 .nav-item:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.nav-item:active {
+    background: rgba(0, 0, 0, 0.08);
 }
 
 .nav-item.active {
     background: transparent;
-    border-bottom: 2px solid #0078d7;
+    border-bottom-color: #0078d7;
     font-weight: 600;
+}
+
+/* Reveal effect on hover */
+.nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 120, 215, 0.1), transparent 100px);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.nav-item:hover::before {
+    opacity: 1;
 }
 
 /* User Menu */
@@ -189,14 +238,15 @@ body::before {
 .user-menu-btn {
     background: transparent;
     border: none;
-    padding: 0 15px;
+    padding: 0 16px;
     font-family: 'Segoe UI', sans-serif;
     color: white;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 400;
     line-height: 40px;
     height: 40px;
-    transition: background 0.1s;
+    transition: background 0.15s;
 }
 
 .user-menu-btn:hover {
@@ -208,12 +258,14 @@ body::before {
     position: absolute;
     bottom: 100%;
     right: 0;
-    background: #1f1f1f;
+    background: rgba(31, 31, 31, 0.95);
+    backdrop-filter: blur(30px) saturate(125%);
+    -webkit-backdrop-filter: blur(30px) saturate(125%);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    min-width: 240px;
-    margin-bottom: 2px;
+    min-width: 280px;
+    margin-bottom: 4px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-    padding: 4px 0;
+    padding: 4px;
 }
 
 .user-menu:hover .user-menu-dropdown {
@@ -222,15 +274,17 @@ body::before {
 
 .dropdown-item {
     display: block;
-    padding: 10px 20px;
+    padding: 10px 16px;
     text-decoration: none;
     color: #fff;
     font-size: 14px;
-    transition: background 0.1s;
+    font-weight: 400;
+    transition: background 0.15s;
+    border-radius: 2px;
 }
 
 .dropdown-item:hover {
-    background: #2b2b2b;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .main-content {
@@ -264,43 +318,49 @@ body::before {
     flex-direction: column;
 }
 
-/* Botones Win10 - Accent Blue */
+/* Buttons - Accent color with depth */
 .xp-button {
-    background: #e1e1e1;
-    border: 1px solid #adadad;
-    padding: 5px 15px;
+    background: #0078d7;
+    border: 1px solid #0067c0;
+    padding: 6px 16px;
     font-family: 'Segoe UI', sans-serif;
     cursor: pointer;
     margin: 4px;
     text-decoration: none;
-    color: #000;
+    color: #fff;
     display: inline-block;
     text-align: center;
-    transition: all 0.1s;
+    font-weight: 400;
     font-size: 14px;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .xp-button:hover {
-    background: #e5f1fb;
-    border-color: #0078d7;
+    background: #005a9e;
+    border-color: #004578;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .xp-button:active {
-    background: #cce4f7;
+    background: #004578;
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Inputs */
+/* Inputs - Fluent style */
 .xp-input,
 .xp-textarea,
 .xp-select {
-    border: 2px solid #7a7a7a;
+    border: 2px solid #8a8a8a;
+    border-radius: 2px;
+    background-color: #fff;
     padding: 7px 10px;
     font-family: 'Segoe UI', sans-serif;
     width: 100%;
     margin: 4px 0;
-    background: #fff;
     font-size: 14px;
-    transition: border-color 0.1s;
+    transition: all 0.15s ease;
 }
 
 .xp-input:hover,
@@ -314,9 +374,15 @@ body::before {
 .xp-select:focus {
     border-color: #0078d7;
     outline: none;
+    box-shadow: 0 0 0 1px #0078d7;
 }
 
-/* Lista de elementos */
+.xp-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Lists */
 .xp-list {
     list-style: none;
 }
@@ -325,27 +391,28 @@ body::before {
     background: white;
     border: 1px solid #e5e5e5;
     margin: 2px 0;
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
-    transition: background 0.1s;
+    transition: all 0.15s ease;
 }
 
 .xp-list-item:hover {
     background: #f5f5f5;
-    border-color: #d0d0d0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
 }
 
-/* Botones de ventana Win10 */
+/* Window Controls */
 .window-controls {
     display: flex;
     gap: 0;
     margin-left: auto;
-    margin-right: -10px;
+    margin-right: -12px;
     height: 100%;
 }
 
 .win-btn {
-    width: 45px;
+    width: 46px;
     height: 32px;
     background: transparent;
     border: none;
@@ -355,8 +422,8 @@ body::before {
     justify-content: center;
     cursor: default;
     color: #000;
-    font-family: 'Segoe UI Symbol';
-    transition: background 0.1s;
+    font-family: 'Segoe UI Symbol', sans-serif;
+    transition: background 0.15s;
 }
 
 .win-btn:hover {
@@ -370,12 +437,8 @@ body::before {
 }
 
 .win-btn.max::before {
-    content: '☐';
+    content: '□';
     font-size: 14px;
-}
-
-.win-btn.close {
-    color: #000;
 }
 
 .win-btn.close::before {

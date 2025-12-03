@@ -1,5 +1,5 @@
-/* Windows 8 Metro Theme */
-@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+/* Windows 8 Metro UI Theme - Authentic Replica */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap');
 
 * {
     margin: 0;
@@ -8,29 +8,48 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #4617b4;
-    /* Púrpura Win8 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Authentic Win8 purple background */
+    background: linear-gradient(135deg, #1d4e89 0%, #4617b4 50%, #9b1d6e 100%);
+    background-attachment: fixed;
     color: #000;
-    font-size: 14px;
+    font-size: 11pt;
     min-height: 100vh;
+    font-weight: 300;
 }
 
-/* Barra de tareas Win8 (Plana) */
+/* Windows 8 Desktop Pattern - Subtle grid */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .02) 1px, transparent 1px);
+    background-size: 100px 100px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Taskbar - Win8 style (flat, dark) */
 .taskbar {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     height: 40px;
-    background: #2d2d2d;
-    /* Negro/Gris oscuro */
+    background: #1f1f1f;
     z-index: 1000;
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    padding: 0;
+    box-shadow: 0 -1px 0 rgba(255, 255, 255, .05);
 }
 
+/* Start Button - Windows Logo */
 .start-button {
     height: 40px;
     width: 48px;
@@ -38,55 +57,78 @@ body {
     color: white;
     border: none;
     cursor: pointer;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    margin-right: 10px;
+    transition: background 0.1s ease;
+    position: relative;
 }
 
 .start-button:hover {
     background: #4617b4;
 }
 
+.start-button:active {
+    background: #3a1291;
+}
+
 .start-button span {
     display: none;
 }
 
-/* Ocultar texto */
+/* Windows logo icon */
 .start-button::after {
-    content: '⊞';
-    /* Símbolo Windows */
-    font-size: 24px;
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: white;
+    clip-path: polygon(0 0, 48% 0, 48% 48%, 0 48%,
+            52% 0, 100% 0, 100% 48%, 52% 48%,
+            0 52%, 48% 52%, 48% 100%, 0 100%,
+            52% 52%, 100% 52%, 100% 100%, 52% 100%);
 }
 
-/* Ventana Win8 */
+/* Metro Window - Flat, borderless design */
 .xp-window {
     background: #fff;
-    border: 1px solid #4617b4;
-    /* Borde de color acento */
+    border: none;
     margin: 20px;
     overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+    position: relative;
+    z-index: 1;
 }
 
+/* Accent border on active window */
+.xp-window::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #4617b4;
+}
+
+/* Title bar - Minimalist */
 .xp-titlebar {
     background: #fff;
     color: #000;
-    padding: 8px 10px;
-    font-weight: normal;
+    padding: 8px 12px;
+    font-weight: 300;
+    font-size: 11pt;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 32px;
+    height: 40px;
+    border-bottom: 1px solid #f0f0f0;
 }
 
-/* En Win8 el título está centrado pero aquí lo dejamos a la izquierda para compatibilidad */
 .xp-titlebar-text {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 14px;
+    gap: 8px;
+    font-size: 11pt;
 }
 
 .xp-content {
@@ -95,48 +137,67 @@ body {
     min-height: 200px;
 }
 
-/* Header fijo */
+/* Header - Flat design */
 .xp-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     background: #fff;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e5e5e5;
     z-index: 999;
-    padding: 10px;
+    padding: 0;
+    height: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
 
-/* Navegación */
+/* Navigation - Metro style tiles */
 .nav-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
+    display: flex;
+    gap: 0;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .nav-item {
-    background: #eee;
-    padding: 8px;
+    background: transparent;
+    padding: 0 20px;
     text-align: center;
     text-decoration: none;
     color: #000;
-    font-weight: 600;
-    transition: all 0.1s;
+    font-weight: 300;
+    transition: all 0.1s ease;
+    line-height: 48px;
+    height: 48px;
+    font-size: 11pt;
+    position: relative;
 }
 
 .nav-item:hover {
-    background: #ddd;
-    outline: 2px solid #999;
+    background: #f6f6f6;
+}
+
+.nav-item:active {
+    background: #e5e5e5;
 }
 
 .nav-item.active {
+    background: transparent;
+    font-weight: 600;
+}
+
+/* Active indicator - bottom accent line */
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
     background: #4617b4;
-    color: white;
 }
 
 /* User Menu */
@@ -148,13 +209,15 @@ body {
 .user-menu-btn {
     background: transparent;
     border: none;
-    padding: 0 15px;
+    padding: 0 20px;
     font-family: 'Segoe UI', sans-serif;
     color: white;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 11pt;
+    font-weight: 300;
     line-height: 40px;
     height: 40px;
+    transition: background 0.1s;
 }
 
 .user-menu-btn:hover {
@@ -167,10 +230,10 @@ body {
     bottom: 100%;
     right: 0;
     background: #fff;
-    border: 1px solid #ccc;
-    min-width: 180px;
-    margin-bottom: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e5e5e5;
+    min-width: 200px;
+    margin-bottom: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .05), 0 4px 8px rgba(0, 0, 0, .1);
 }
 
 .user-menu:hover .user-menu-dropdown {
@@ -179,18 +242,21 @@ body {
 
 .dropdown-item {
     display: block;
-    padding: 10px 20px;
+    padding: 12px 20px;
     text-decoration: none;
-    color: #333;
+    color: #000;
+    font-size: 11pt;
+    font-weight: 300;
+    transition: background 0.1s;
 }
 
 .dropdown-item:hover {
-    background: #eee;
+    background: #f6f6f6;
 }
 
 .main-content {
-    margin-top: 70px;
-    margin-bottom: 50px;
+    margin-top: 60px;
+    margin-bottom: 60px;
     padding: 20px;
     max-width: 1400px;
     margin-left: auto;
@@ -211,7 +277,6 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    border: 1px solid #ccc;
 }
 
 .home-grid .xp-content {
@@ -220,78 +285,124 @@ body {
     flex-direction: column;
 }
 
-.home-grid .xp-titlebar {
-    background: #eee;
-    color: #000;
-}
-
-/* Botones Win8 */
+/* Metro Buttons - Flat with accent color */
 .xp-button {
-    background: #ccc;
+    background: #4617b4;
     border: none;
-    padding: 8px 20px;
+    padding: 10px 24px;
     font-family: 'Segoe UI', sans-serif;
     cursor: pointer;
     margin: 4px;
     text-decoration: none;
-    color: #000;
+    color: #fff;
     display: inline-block;
     text-align: center;
-    font-weight: 600;
+    font-weight: 300;
+    font-size: 11pt;
+    transition: background 0.1s ease;
 }
 
 .xp-button:hover {
-    background: #bbb;
-    outline: 2px solid #999;
+    background: #3a1291;
 }
 
 .xp-button:active {
-    background: #000;
-    color: white;
+    background: #2e0e73;
 }
 
-/* Inputs */
+/* Inputs - Minimal borders */
 .xp-input,
 .xp-textarea,
 .xp-select {
-    border: 2px solid #999;
-    padding: 8px;
+    border: 2px solid #8a8a8a;
+    border-radius: 0;
+    background-color: #fff;
+    padding: 8px 12px;
     font-family: 'Segoe UI', sans-serif;
     width: 100%;
     margin: 4px 0;
-    background: #fff;
+    font-size: 11pt;
+    font-weight: 300;
+    transition: border-color 0.1s;
 }
 
-.xp-input:focus {
+.xp-input:hover,
+.xp-textarea:hover,
+.xp-select:hover {
+    border-color: #171717;
+}
+
+.xp-input:focus,
+.xp-textarea:focus,
+.xp-select:focus {
     border-color: #4617b4;
     outline: none;
 }
 
-/* Botones de ventana */
+.xp-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Lists */
+.xp-list {
+    list-style: none;
+}
+
+.xp-list-item {
+    background: white;
+    border: 1px solid #e5e5e5;
+    margin: 2px 0;
+    padding: 12px;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.xp-list-item:hover {
+    background: #f6f6f6;
+}
+
+/* Window Controls - Minimal symbols */
 .window-controls {
     display: flex;
     gap: 0;
-    margin-left: 10px;
-    margin-right: -10px;
+    margin-left: auto;
+    margin-right: -12px;
     height: 100%;
 }
 
 .win-btn {
-    width: 34px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     background: transparent;
     border: none;
-    font-size: 12px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: default;
     color: #000;
-    font-weight: normal;
+    font-weight: 300;
+    transition: background 0.1s;
 }
 
 .win-btn:hover {
-    background: #ddd;
+    background: #e5e5e5;
+}
+
+.win-btn.min::before {
+    content: '─';
+    font-size: 18px;
+}
+
+.win-btn.max::before {
+    content: '□';
+    font-size: 14px;
+}
+
+.win-btn.close::before {
+    content: '✕';
+    font-size: 12px;
 }
 
 .win-btn.close:hover {
@@ -302,7 +413,8 @@ body {
 /* Responsive */
 @media (max-width: 768px) {
     .nav-grid {
-        grid-template-columns: repeat(3, 1fr);
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .home-grid {
