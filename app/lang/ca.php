@@ -127,4 +127,22 @@ return [
     'msg.error' => 'Error',
     'msg.loading' => 'Carregant...',
     'msg.no_results' => 'No s\'han trobat resultats.',
+    
+    // Panell d'informació de projectes
+    'projects.info.title' => 'Què és això?',
+    'projects.info.description' => 'Els Projectes Comunitaris són un espai on els membres de RetroSpace poden compartir les seves creacions, treballs en curs i col·laboracions.',
+    'projects.info.what_can_do' => 'Què pots fer aquí?',
+    'projects.info.browse' => 'Explorar projectes d\'altres usuaris',
+    'projects.info.create' => 'Crear i publicar els teus propis projectes',
+    'projects.info.update' => 'Actualitzar els teus projectes amb noves versions',
+    'projects.info.comment' => 'Comentar i donar feedback a altres',
+    'projects.info.categories_title' => 'Categories disponibles:',
+    'projects.info.cat_programming' => 'Aplicacions i codi',
+    'projects.info.cat_hardware' => 'Projectes d\'electrònica i maquinari',
+    'projects.info.cat_mods' => 'Modificacions de jocs',
+    'projects.info.cat_gamemaker' => 'Jocs creats amb GameMaker',
+    'projects.info.how_to_start' => 'Com començar?',
+    'projects.info.step1' => 'Fes clic al botó "+ Nou Projecte"',
+    'projects.info.step2' => 'Omple el formulari amb els detalls',
+    'projects.info.step3' => 'Publica i comparteix amb la comunitat!',
 ];

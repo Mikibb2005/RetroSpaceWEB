@@ -9,7 +9,8 @@
 
 body {
     font-family: 'Courier Prime', 'Courier New', monospace;
-    background: #00807F;
+    background: #5A98D0 url('../images/xp-bliss.png') no-repeat center center fixed;
+    background-size: cover;
     color: #000;
     font-size: 14px;
     min-height: 100vh;

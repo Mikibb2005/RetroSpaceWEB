@@ -159,4 +159,22 @@ return [
     
     // Errors
     'error.csrf' => 'Invalid security token. Please reload the page.',
+    
+    // Projects info panel
+    'projects.info.title' => 'What is this?',
+    'projects.info.description' => 'Community Projects is a space where RetroSpace members can share their creations, works in progress, and collaborations.',
+    'projects.info.what_can_do' => 'What can you do here?',
+    'projects.info.browse' => 'Browse projects from other users',
+    'projects.info.create' => 'Create and publish your own projects',
+    'projects.info.update' => 'Update your projects with new versions',
+    'projects.info.comment' => 'Comment and give feedback to others',
+    'projects.info.categories_title' => 'Available categories:',
+    'projects.info.cat_programming' => 'Applications and code',
+    'projects.info.cat_hardware' => 'Electronics and hardware projects',
+    'projects.info.cat_mods' => 'Game modifications',
+    'projects.info.cat_gamemaker' => 'Games created with GameMaker',
+    'projects.info.how_to_start' => 'How to get started?',
+    'projects.info.step1' => 'Click the "+ New Project" button',
+    'projects.info.step2' => 'Fill out the form with the details',
+    'projects.info.step3' => 'Publish and share with the community!',
 ];

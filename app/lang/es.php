@@ -160,4 +160,22 @@ return [
     
     // Errores
     'error.csrf' => 'Token de seguridad inválido. Por favor, recarga la página.',
+    
+    // Panel de información de proyectos
+    'projects.info.title' => '¿Qué es esto?',
+    'projects.info.description' => 'Los Proyectos Comunitarios son un espacio donde los miembros de RetroSpace pueden compartir sus creaciones, trabajos en progreso y colaboraciones.',
+    'projects.info.what_can_do' => '¿Qué puedes hacer aquí?',
+    'projects.info.browse' => 'Explorar proyectos de otros usuarios',
+    'projects.info.create' => 'Crear y publicar tus propios proyectos',
+    'projects.info.update' => 'Actualizar tus proyectos con nuevas versiones',
+    'projects.info.comment' => 'Comentar y dar feedback a otros',
+    'projects.info.categories_title' => 'Categorías disponibles:',
+    'projects.info.cat_programming' => 'Aplicaciones y código',
+    'projects.info.cat_hardware' => 'Proyectos de electrónica y hardware',
+    'projects.info.cat_mods' => 'Modificaciones de juegos',
+    'projects.info.cat_gamemaker' => 'Juegos creados con GameMaker',
+    'projects.info.how_to_start' => '¿Cómo empezar?',
+    'projects.info.step1' => 'Haz clic en el botón "+ Nuevo Proyecto"',
+    'projects.info.step2' => 'Rellena el formulario con los detalles',
+    'projects.info.step3' => '¡Publica y comparte con la comunidad!',
 ];
